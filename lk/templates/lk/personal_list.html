@@ -1,0 +1,197 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+
+
+{% block nav %}
+<nav class="nav nav-bottom">
+	<a href="{% url 'register' %}" class="nav__link nav__link_active">{{ url_name }}</a>
+</nav>
+{% endblock nav %}
+
+<!-- Main Section -->
+
+{% block content %}
+<section class="main users">
+
+	<div class="container">
+		<div class="main__content">
+
+
+			<div class="filter">
+				<form action="{% url 'filter' %}" method="get" class="filter__form">
+
+					<div class="input-group">
+						<span class="input-group__label">Участок</span>
+						<div class="checkbox-dropdown dropdown">
+							<div class="checkbox-dropdown__label input">
+								<span class="checkbox-dropdown__label-text">Не выбрано</span>
+								<span class="checkbox-dropdown__label-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+										<path
+											d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+										</path>
+									</svg>
+								</span>
+							</div>
+							<div class="checkbox-dropdown__dropdown">
+
+								<span class="checkbox-dropdown__input-icon"></span>
+								<div class="checkbox-dropdown__checkboxes">
+									{% for uchavr in view.get_uchavrs %}
+									<label class="checkbox">
+										<input type="checkbox" name="uchavr" class="checkbox__input"
+											value="{{ uchavr.id }}">
+										<span class="checkbox__box"></span>
+										<span class="checkbox__label">{{ uchavr.uchavr }}</span>
+									</label>
+									{% endfor %}
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="input-group">
+
+						<span class="input-group__label">Подразделение</span>
+
+						<div class="checkbox-dropdown dropdown">
+							<div class="checkbox-dropdown__label input">
+								<span class="checkbox-dropdown__label-text">Не выбрано</span>
+								<span class="checkbox-dropdown__label-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+										<path
+											d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+									</svg>
+								</span>
+							</div>
+							<div class="checkbox-dropdown__dropdown">
+
+								<span class="checkbox-dropdown__input-icon"></span>
+
+								<div class="checkbox-dropdown__checkboxes">
+									{% for group in view.get_groups %}
+									<label class="checkbox">
+										<input type="checkbox" name="group" class="checkbox__input"
+											value="{{ group.id }}">
+										<span class="checkbox__box"></span>
+										<span class="checkbox__label">{{ group.group }}</span>
+									</label>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="input-group">
+
+						<span class="input-group__label">Профессия</span>
+
+						<div class="checkbox-dropdown dropdown">
+							<div class="checkbox-dropdown__label input">
+								<span class="checkbox-dropdown__label-text">Не выбрано</span>
+								<span class="checkbox-dropdown__label-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+										<path
+											d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+									</svg>
+								</span>
+							</div>
+							<div class="checkbox-dropdown__dropdown">
+
+								<span class="checkbox-dropdown__input-icon"></span>
+
+								<div class="checkbox-dropdown__checkboxes">
+									{% for professiya in view.get_professiya %}
+									<label class="checkbox">
+										<input type="checkbox" name="professiya" class="checkbox__input"
+											value="{{ professiya.id }}">
+										<span class="checkbox__box"></span>
+										<span class="checkbox__label">{{ professiya.prof }}</span>
+									</label>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<button class="btn">Поиск</button>
+
+				</form>
+			</div>
+
+
+			<div class="users-list">
+				<div class="users-list__items users-list__items-title">
+					<span class="users-list__items-elements">Фамилия</span>
+					<span class="users-list__items-elements">Имя</span>
+					<span class="users-list__items-elements">Отчество</span>
+					<span class="users-list__items-elements">Таб.номер</span>
+					<span class="users-list__items-elements">Участок</span>
+					<span class="users-list__items-elements">Подразделение</span>
+					<span class="users-list__items-elements">Профессия</span>
+					<span class="users-list__items-elements">Инструтаж</span>
+					<span class="users-list__items-elements">Проверка знаний</span>
+					<span class="users-list__items-elements">Эл.безопасность</span>
+					<span class="users-list__items-elements">Мед.осмотр</span>
+					<span class="users-list__items-elements users-list__items-elements-label">Р</span>
+					<span class="users-list__items-elements users-list__items-elements-label">В</span>
+					<span class="users-list__items-elements users-list__items-elements-label">Б</span>
+					<span class="users-list__items-elements users-list__items-elements-label">О</span>
+					<span class="users-list__items-elements users-list__items-elements-label"></span>
+				</div>
+				<!-- Сотрудник -->
+				{% if personal_list %}
+
+				{% for p in personal_list %}
+
+				<div class="users-list__items users-list__items-person">
+					<span class="users-list__items-elements">{{ p.name_1 }}</span>
+					<span class="users-list__items-elements">{{ p.name_2 }}</span>
+					<span class="users-list__items-elements">{{ p.name_3 }}</span>
+					<span class="users-list__items-elements">{{ p.tabnumber }}</span>
+					<span class="users-list__items-elements">
+						{% if p.uch_avr %}
+						{{ p.uch_avr }}
+						{% else %}---
+						{% endif %}
+					</span>
+
+					<span class="users-list__items-elements">{{ p.gruppa }}</span>
+					<span class="users-list__items-elements">{{ p.professiya }} {{ p.lvl }}р.</span>
+					<span class="users-list__items-elements users-list__items-elements-warning">24.05.21</span>
+					<span class="users-list__items-elements">{{ p.examen_ot|date:"SHORT_DATE_FORMAT" }}</span>
+					<span class="users-list__items-elements">24.05.21</span>
+					<span class="users-list__items-elements">5647667</span>
+					<span class="users-list__items-elements users-list__items-elements-label"></span>
+					<span class="users-list__items-elements users-list__items-elements-label"></span>
+					<span class="users-list__items-elements users-list__items-elements-label"></span>
+					<span class="users-list__items-elements users-list__items-elements-label"></span>
+					<span class="users-list__items-elements users-list__items-elements-label">
+						<a href="{{ p.get_absolute_url }}" class="show-card"></a>
+					</span>
+				</div>
+
+				{% endfor %}
+				{% else %}
+				<span class="not-users">Сотрудники не найдены</span>
+				{% endif %}
+
+
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- /.main -->
+
+<!-- Modals -->
+<!--#include virtual="/parts/modals.html" -->
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Войти</button>
+
+</form>
+
+
+{% endblock content %}

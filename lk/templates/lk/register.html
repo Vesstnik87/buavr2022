@@ -1,0 +1,206 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+	<nav class="nav nav-bottom">
+		<a href="{% url 'sotrudniki' %}" class="nav__link nav__link_active">{{ url_name }}</a>
+	</nav>
+{% endblock nav %}
+
+{% block content %}
+
+	<main class="main">
+        <div class="container">
+
+            <div class="register-form">
+
+                <form action="{% url 'register' %}" class="register" method="post">
+
+
+					{% csrf_token %}
+                    <div> {{ form.non_field_errors }}</div>
+
+
+                    <div class="register__wrap">
+
+                        <div class="register__items">
+							<div class="input-group">
+								<span class="input-group__label">{{ form.name_1.label }}</span>
+								<input class="input input-group__input" type="text" name="name_1" required>
+							</div>
+							<div class="input-group">
+								<span class="input-group__label">{{ form.name_2.label }}</span>
+								<input class="input input-group__input" type="text" name="name_2" required>
+							</div>
+							<div class="input-group">
+								<span class="input-group__label">{{ form.name_3.label }}</span>
+								<input class="input input-group__input" type="text" name="name_3" required>
+							</div>
+							<div class="input-group">
+								<span class="input-group__label">{{ form.bithday.label }}</span>
+								<input class="input input-group__input" type="date" name="bithday" required>
+							</div>
+							<div class="input-group">
+								<span class="input-group__label">{{ form.ustroen.label }}</span>
+								<input class="input input-group__input" type="date" name="ustroen" required>
+							</div>
+							<div class="input-group">
+								<span class="input-group__label">{{ form.tabnumber.label }}</span>
+								<input class="input input-group__input" type="number" name="tabnumber" required>
+							</div>
+						</div>
+
+                        <div class="register__items">
+                            <div class="input-group">
+                                <span class="input-group__label">{{ form.professiya.label }}</span>
+                                <div class="radio-dropdown">
+                                    <div class="radio-dropdown__label input">
+                                        <span class="radio-dropdown__label-text">Не выбрано</span>
+                                        <span class="radio-dropdown__label-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="radio-dropdown__dropdown">
+                                        <span class="radio-dropdown__input-icon"></span>
+                                        <div class="radio-dropdown__radios">
+                                            
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="professiya" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">Не выбрано</span>
+                                            </label>
+
+                                            {% for professiya in view.get_professiya %}
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="professiya" value="{{ professiya.id }}" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">{{ professiya.prof }}</span>
+                                            </label>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group__label">{{ form.lvl.label }}</span>
+                                <input class="input input-group__input" type="number" name="lvl" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group__label">{{ form.gruppa.label }}</span>
+                                <div class="radio-dropdown">
+                                    <div class="radio-dropdown__label input">
+                                        <span class="radio-dropdown__label-text">Не выбрано</span>
+                                        <span class="radio-dropdown__label-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="radio-dropdown__dropdown">
+                                        <span class="radio-dropdown__input-icon"></span>
+                                        <div class="radio-dropdown__radios">
+                                            
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="gruppa" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">Не выбрано</span>
+                                            </label>
+
+                                            {% for group in view.get_groups %}
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="gruppa" value="{{ group.id }}" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">{{ group.group }}</span>
+                                            </label>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group__label">{{ form.uch_avr.label }}</span>
+                                <div class="radio-dropdown">
+                                    <div class="radio-dropdown__label input">
+                                        <span class="radio-dropdown__label-text">Не выбрано</span>
+                                        <span class="radio-dropdown__label-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="radio-dropdown__dropdown">
+                                        <span class="radio-dropdown__input-icon"></span>
+                                        <div class="radio-dropdown__radios">
+
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="uch_avr" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">Не выбрано</span>
+                                            </label>
+
+                                            {% for uchavr in view.get_uchavrs %}
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="uch_avr" value="{{ uchavr.id }}" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">{{ uchavr.uchavr }}</span>
+                                            </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group__label">{{ form.otdeleniye.label }}</span>
+                                <div class="radio-dropdown">
+                                    <div class="radio-dropdown__label input">
+                                        <span class="radio-dropdown__label-text">Не выбрано</span>
+                                        <span class="radio-dropdown__label-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="radio-dropdown__dropdown">
+                                        <span class="radio-dropdown__input-icon"></span>
+                                        <div class="radio-dropdown__radios">
+
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="otdeleniye" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">Не выбрано</span>
+                                            </label>
+
+                                            {% for otdel in view.get_otdel%}
+                                            <label class="radio">
+                                                <input type="radio" class="radio__input" name="otdeleniye" value="{{ otdel.id }}" required>
+                                                <span class="radio__box"></span>
+                                                <span class="radio__label">{{ otdel.otdel }}</span>
+                                            </label>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <button class="btn" type="submit">Добавить сотрудника</button>
+
+                </form>
+
+            </div>
+
+
+        </div>
+	</main>
+
+{% endblock content %}

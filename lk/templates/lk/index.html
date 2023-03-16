@@ -1,0 +1,21 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+<nav class="nav nav-bottom">
+	<a href="{% url 'remonti' %}" class="nav__link nav__link_active">{{ url_name_2 }}</a>
+</nav>
+{% endblock nav %}
+{% block content %}
+
+<a href="#" class="test-btn">Проверить</a>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	crossorigin="anonymous"></script>
+{% endblock content %}
+
+
+
+<!--#include virtual="/parts/modals.html" -->
+<!--#include virtual="/parts/footer.html" -->
+

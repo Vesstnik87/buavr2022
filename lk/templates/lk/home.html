@@ -1,0 +1,363 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+	<nav class="nav nav-bottom">
+        <a href="{% url 'remonti' %}" class="nav__link nav__link_active">{{ url_name_1 }}</a>
+	</nav>
+{% endblock nav %}
+
+{% block content %}
+	<!-- Main Section -->
+	<section class="main">
+		<div class="container">
+			<div class="top-content">
+				<div class="base__window">
+
+					<div class="heading-module">
+						<div class="heading-module__wrap">
+							<div class="heading-module__tabs active">Планировщик</div>
+						</div>
+					</div>
+
+					<div class="tab__content">
+						<div class="todo">
+							<div class="contents">
+								<div class="content todo__content-warning">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content todo__content-today">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="item">
+										<div class="item__date">
+											<span>21.04.2021</span>
+										</div>
+										<div class="item__content">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, consectetur quod
+												dolores quas
+												magni quia modi voluptatem earum est animi ipsam enim eos, consequuntur nihil.</p>
+										</div>
+										<div class="item__change">
+											<div class="edit opacity"></div>
+											<div class="done opacity"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="todo__add-task">
+								<form action="#">
+									<input type="text" class="input add-task__input" placeholder="Новая задача">
+									<label for="date" class="add-task__label">
+										<input type="date" name="date" id="date" class="add-task__date">
+									</label>
+									<input type="submit" class="btn add-task__btn" value="Добавить">
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="base__window">
+
+					<div class="heading-module">
+						<div class="heading-module__wrap"></div>
+					</div>
+
+					<div class="tab__content">
+						<div class="calendar">
+							<div class="container-calendar">
+								<div class="calendar__title">
+									<h3 id="monthAndYear"></h3>
+									<div class="button-container-calendar">
+										<button id="previous">&#8249;</button>
+										<button id="next">&#8250;</button>
+									</div>
+								</div>
+
+								<table class="table-calendar" id="calendar" data-lang="ru">
+									<thead id="thead-month"></thead>
+									<tbody id="calendar-body"></tbody>
+								</table>
+
+								<div class="footer-container-calendar">
+									<!-- <label for="month">Jump To: </label> -->
+									<select id="month" class="input">
+										<option value=0>Январь</option>
+										<option value=1>Февраль</option>
+										<option value=2>Март</option>
+										<option value=3>Апрель</option>
+										<option value=4>Май</option>
+										<option value=5>Июнь</option>
+										<option value=6>Июль</option>
+										<option value=7>Август</option>
+										<option value=8>Сентябрь</option>
+										<option value=9>Октябрь</option>
+										<option value=10>Ноябрь</option>
+										<option value=11>Декабрь</option>
+									</select>
+									<select id="year" class="input"></select>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom-content">
+				<div class="content-title">
+					<h3>Сообщения</h3>
+				</div>
+				<div class="messages base__window">
+					<div class="contents">
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item">
+								<div class="item__persone">
+									<span class="persone">Иванова.И.И</span>
+									<span class="plot">ОКиТО</span>
+								</div>
+
+								<div class="item__content">
+									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod illo eius quas!
+										Minus
+										enim cumque reprehenderit! Enim sapiente natus voluptatum iusto. Repudiandae cupiditate
+										omnis
+										enim molestiae odit vero tenetur vel nobis doloremque repellendus accusantium sint dolores
+										accusamus, minima autem voluptate a provident ut! Nesciunt maxime, nam et illum sequi quos
+										facilis fugiat beatae inventore velit asperiores commodi optio ratione pariatur deserunt
+										iusto magni odio eius quas quibusdam provident voluptatem vitae molestias! Nostrum atque
+										placeat sed animi doloremque, deserunt odit voluptatum eos amet, ipsam, tenetur minus
+										voluptates?</p>
+								</div>
+								<div class="item__date">
+									<span>21.04.2021</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--#include virtual="/parts/modals.html" -->
+
+	<!-- /.main -->
+	<script src="{% static 'lk/js/app.min.js' %}"></script>
+{% endblock content %}
+</body>
+
+</html>

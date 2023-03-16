@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>БУАВР | {{ title }}</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="{% static 'lk/images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'lk/css/main.min.css' %}">
+</head>
+<body>
+	<!-- PRELOADER -->
+	<div class="preloader">
+
+		<div class="preloader-item"></div>
+		
+	</div>
+	<!-- Header-->
+	<header class="header">
+		<div class="header__top">
+			<div class="container">
+				<nav class="nav">
+					<a href="{% url 'home' %}" class="nav__link icon-home home active"></a>
+					<a href="#" class="nav__link icon-books books"></a>
+					<a href="{% url 'filter' %}" class="nav__link icon-users users"></a>
+					<a href="{% url 'ohrana_truda' %}" class="nav__link icon-hard-had hard-had">
+						<span class="count-events show">3</span>
+					</a>
+				</nav>
+				<div class="login">
+					<div class="login__users">
+						<div class="name">Иванов И.И</div>
+						<div class="separator">|</div>
+						<div class="department ">ОТ</div>
+						<a href="profile.html" class="avatar">
+							<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="personal-photo">
+
+							<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="personal-photo">
+						</a>
+					</div>
+					<a href="{% url 'login' %}" class="btn">Войти</a>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="header__bottom">
+				<div class="left">
+					{% block nav %}
+					{% endblock nav %}
+				</div>
+<!--				<div class="right">-->
+<!--					<a href="#" class="right__link planner">Планировщик</a>-->
+<!--					<a href="#" class="right__link address-book__link">Справочник</a>-->
+<!--				</div>-->
+			</div>
+		</div>
+
+<!--		конец навигационного меню-->
+	</header>
+	<!-- /.header -->
+{% block content %}
+{% endblock content %}
+<script src="{% static 'lk/js/app.min.js' %}"></script>
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>

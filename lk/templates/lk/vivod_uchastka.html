@@ -1,0 +1,185 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+	<nav class="nav nav-bottom">
+		<a href="{% url 'add_uch' %}" class="nav__link nav__link_active">{{ url_name }}</a>
+        <a href="{% url 'remonti' %}" class="nav__link">{{ url_name_2 }}</a>
+	</nav>
+{% endblock nav %}
+
+{% block content %}
+    <main class="main repair add-plot-repair">
+        <div class="container">
+
+            <div class="default-block">
+                <div class="form-wrap"></div>
+
+                <form action="{% url 'add_uch' %}" method="POST" class="form">
+
+                    {% csrf_token %}
+                    
+                    <!-- Наименование филиала, газопровода-->
+                    <div class="form-block form-block_column form-block_border form-block_name-plot">
+
+                        <div class="form-block-defects__wrap">
+
+
+                            <div class="form-block__flex-container">
+
+                                <!-- Наименование филиала ЛПУ МГ-->
+                                <div class="form-block__item input-group">
+                                    <span class="input-group__label">{{ form.lpu.label }}</span>
+                                    {{ form.lpu }}
+                                    <span class="input-error">{{ form.lpu.errors }}</span>
+                                </div>
+
+                                <!-- Наименование газопровода-->
+                                <div class="form-block__item input-group">
+                                    <span class="input-group__label">{{ form.nitka.label }}</span>
+                                    {{ form.nitka }}
+                                    {{ form.nitka.errors }}
+                                </div>
+
+                                <!-- Диаметр газопровода -->
+                                <div class="form-block__item input-group">
+                                    <span class="input-group__label">{{ form.d_gazopr.label }}</span>
+                                    {{ form.d_gazopr }}
+                                    {{ form.d_gazopr.errors }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Ремонтируемый участок-->
+                    <div class="form-block form-block_column form-block_border form-block_repair-plot">
+
+                        <div class="form-block__title">Ремонтируемый участок</div>
+
+                        <div class="form-block__flex-container">
+                            <!-- Начало участка -->
+                            <div class="form-block__item input-group input-group_small">
+                                <span class="input-group__label">{{ form.start_uch.label }}</span>
+                                {{ form.start_uch }}
+                                {{ form.start_uch.errors }}
+                            </div>
+                            <span class="separator"></span>
+                            <!-- Конец участка -->
+                            <div class="form-block__item input-group input-group_small">
+                                <span class="input-group__label">{{ form.end_uch.label }}</span>
+                                {{ form.end_uch }}
+                                {{ form.end_uch.errors }}
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Даты ремонта-->
+                    <div class="form-block form-block_column form-block_border">
+
+                        <div class="form-block__flex-container form-block__flex-container_date">
+
+                            <!-- Разрешения -->
+                            <div class="form-block_repair__wrap">
+                                <div class="form-block__title">Разрешения</div>
+
+                                <div class="form-block__flex-container form-block__flex-container_wrap">
+                                    <!-- Дата разрешения -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.razresh.label }}</span>
+                                        {{ form.razresh }}
+                                        {{ form.razresh.errors }}
+                                    </div>
+                                    <!-- Номер разрешения -->
+                                    <div class="form-block__item input-group input-group_small">
+                                        <span class="input-group__label">{{ form.numb_razresh.label }}</span>
+                                        {{ form.numb_razresh }}
+                                        {{ form.numb_razresh.errors }}
+                                    </div>
+                                    <!-- Дата начала по разрешению -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_start_razresh.label }}</span>
+                                        {{ form.date_start_razresh }}
+                                        {{ form.date_start_razresh.errors }}
+                                    </div>
+                                    <!-- Дата начала по разрешению -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_end_razresh.label }}</span>
+                                        {{ form.date_end_razresh }}
+                                        {{ form.date_end_razresh.errors }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- План -->
+                            <div class="form-block_repair__wrap">
+                                
+                                <div class="form-block__title">План</div>
+
+                                <div class="form-block__flex-container  form-block__flex-container_wrap">
+                                    <!-- Дата начала по плану -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_start_plan.label }}</span>
+                                        {{ form.date_start_plan }}
+                                        {{ form.date_start_plan.errors }}
+                                    </div>
+                                    <!-- Дата окончания по плану -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_end_plan.label }}</span>
+                                        {{ form.date_end_plan }}
+                                        {{ form.date_end_plan.errors }}
+                                    </div>
+                                    <!-- Кол-во труб -->
+                                    <div class="form-block__item input-group input-group_small">
+                                        <span class="input-group__label">{{ form.kol_trub_plan.label }}</span>
+                                        {{ form.kol_trub_plan }}
+                                        {{ form.kol_trub_plan.errors }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Факт -->
+                            <div class="form-block_repair__wrap">
+                                <div class="form-block__title">Факт</div>
+
+                                <div class="form-block__flex-container">
+                                    <!-- Дата начала по факту -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_start_fact.label }}</span>
+                                        {{ form.date_start_fact }}
+                                        {{ form.date_start_fact.errors }}
+                                    </div>
+                                    <!-- Дата окончания по факту -->
+                                    <div class="input-group input-group_medium">
+                                        <span class="input-group__label">{{ form.date_end_fact.label }}</span>
+                                        {{ form.date_end_fact }}
+                                        {{ form.date_end_fact.errors }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+
+
+                    </div>
+
+                    <button class="btn" type="submit">Сохранить изменения</button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}
+</body>
+
+</html>
+    <!--#include virtual="/parts/modals.html" -->
+    <!--#include virtual="/parts/footer.html" -->

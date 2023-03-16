@@ -1,0 +1,162 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Main Section -->
+	<section class="main">
+		<div class="container">
+
+			<div class="card-user">
+				<div class="left-block">
+
+					<div class="card-user__section">
+						<div class="personal-block">
+							<div class="personal-block__photo">
+								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника">
+							</div>
+							<div class="personal-block__name">
+								<span class="last-name">{{ personal.name_1 }}</span>
+								<span class="first-name">{{ personal.name_2 }}</span>
+								<span class="middle-name">{{ personal.name_3 }}</span>
+							</div>
+							<div class="personal-block__info block-info">
+								<div class="info-item">Табельный номер:
+									<span>{{ personal.tabnumber }}</span>
+								</div>
+								<div class="info-item">Дата рождения:
+									<span>{{ personal.bithday|date:'d.m.Y' }}</span>
+								</div>
+								<div class="info-item">Профессия:
+									<span>{{ personal.professiya }}</span>
+								</div>
+<!--								<div class="info-item">Смежная профессия:-->
+<!--									<span>-&#45;&#45;</span>-->
+<!--								</div>-->
+								<div class="info-item">Разряд:
+									<span>{{ personal.lvl }}</span>
+								</div>
+								<div class="info-item">Участок:
+									<span>
+										{% if personal.uch_avr %}
+											{{ personal.uch_avr }}
+											{% else %}---
+										{% endif %}
+									</span>
+								</div>
+								<div class="info-item">Отделение:
+									<span>
+										{% if personal.otdeleniye %}
+											{{ personal.otdeleniye }}
+										{% else %}---
+										{% endif %}
+									</span>
+								</div>
+								<div class="info-item">Подразделение:
+									<span>{{ personal.gruppa }}</span>
+								</div>
+								<div class="info-item">Дата трудоустройства:
+									<span>{{ personal.ustroen|date:'d.m.Y' }}</span>
+								</div>
+							</div>
+							<div class="personal-block__reiting">
+								<h3 class="title">Персональная оценка работника</h3>
+								<div class="reiting-wrap">
+									<div class="reiting-wrap__progress"></div>
+									<span>7.0</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="right-block">
+
+					<div class="card-user__section card-user__section--shadow">
+						<h4 class="title-block">ОТ и ПБ</h4>
+						<div class="block-info">
+							<div class="info-item">Проверка знаний по ОТ:
+								<span> {{ personal.examen_ot|date:"d.m.Y" }} </span>
+							</div>
+							<div class="info-item">Сл.проверка знаний по ОТ:
+								<span>{{ personal.next_examen_ot|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Проверка знаний по ЭБ:
+								<span>{{ personal.examen_eb|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Сл.проверка знаний по ЭБ:
+								<span>{{ personal.next_examen_eb|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Проверка знаний по ПДД:
+								<span>{{ personal.examen_pdd|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Сл.проверка знаний по ПДД:
+								<span>{{ personal.next_examen_pdd|date:"d.m.Y" }}</span>
+							</div>
+
+							{% if personal.examen_ptm %}
+							<div class="info-item">Проверка знаний по ПТМ:
+								<span>
+									{{ personal.examen_ptm|date:"d.m.Y" }}
+								</span>
+							</div>
+							{% endif %}
+
+							<div class="info-item">Повторный инструктаж:
+								<span>{{ personal.instructaj|date:"d.m.Y" }}</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-user__section card-user__section--shadow">
+						<h4 class="title-block">Мед. раздел</h4>
+						<div class="block-info">
+							<div class="info-item">Дата прохождения мед.осмотра:
+								<span>{{ personal.med_osmotr|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Флюорография:
+								<span>{{ personal.flura|date:"d.m.Y" }}</span>
+							</div>
+							<div class="info-item">Хронические заболевания:
+								<span>{{ personal.ssz|date:"d.m.Y" }}</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-user__section card-user__section--shadow">
+						<h4 class="title-block">Отпуск</h4>
+						<div class="block-info">
+							<div class="info-item">Осн. отпуск:
+								<span>
+									{{ personal.otpusk_start|date:"d.m.Y" }} - {{ personal.otpusk_end|date:"d.m.Y" }}
+								</span>
+							</div>
+							<div class="info-item">Доп. отпуск:
+								<span>
+									06.07.2020 - 06.07.2020
+								</span>
+							</div>
+							<div class="info-item">Доп. отпуск:
+								<span>
+									06.07.2020 - 06.07.2020
+								</span>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="btn-wrap">
+				<a href="{% url 'user_update' personal.slug %}" class="btn">Изменить данные</a>
+			</div>
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.main -->
+{% endblock content %}
+

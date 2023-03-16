@@ -1,0 +1,55 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+<nav class="nav nav-bottom">
+	<a href="{% url 'remonti' %}" class="nav__link nav__link_active">{{ url_name_2 }}</a>
+</nav>
+{% endblock nav %}
+{% block content %}
+
+
+<main class="main repair">
+	<div class="container">
+		<div class="repair--header">
+			<div class="repair__item">Наименование филиала</div>
+			<div class="repair__item">Газопровод</div>
+			<div class="repair__item">Объект</div>
+			<div class="repair__item">Ответсвтенный</div>
+			<div class="repair__item">Начало работ</div>
+			<div class="repair__item">Окончание работ</div>
+		</div>
+
+		{% for u in uchastok_list %}
+
+		<div class="repair--list">
+			<div class="repair__item">{{ u.lpu }}</div>
+			<div class="repair__item">{{ u.nitka }}</div>
+			<div class="repair__item">Участок {{ u.start_uch }} - {{ u.end_uch }} км</div>
+
+			<!--				узнать как и кем назначаются ответственные-->
+			<div class="repair__item">Иванов И.И.</div>
+			<!--				узнать как и кем назначаются ответственные-->
+
+			<div class="repair__item">{{ u.date_start_fact }}</div>
+			<div class="repair__item">{{ u.date_end_fact }}</div>
+			<a href="{{ u.get_absolute_url }}" class="repair__icon"></a>
+		</div>
+
+		{% endfor %}
+
+		<div class="btn-wrap">
+			<a href="{% url 'add_uch' %}" class="btn">Вывод участка в ремонт</a>
+		</div>
+	</div>
+
+
+</main>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	crossorigin="anonymous"></script>
+{% endblock content %}
+
+
+
+<!--#include virtual="/parts/modals.html" -->
+<!--#include virtual="/parts/footer.html" -->

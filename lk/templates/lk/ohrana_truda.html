@@ -1,0 +1,131 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- Main Section -->
+	<section class="main ohrana-truda">
+		<div class="container">
+			<div class="ohrana-truda__wrapp">
+
+				<div class="default-block">
+					<h4 class="title-3">Очередная / внеплановая проверка знаний</h4>
+					<div class="users-list">
+						<div class="users-list__items users-list__items-title">
+							<span class="users-list__items-elements">ФИО</span>
+							<span class="users-list__items-elements">Участок</span>
+							<span class="users-list__items-elements">Подразделение</span>
+							<span class="users-list__items-elements">Проверка знаний</span>
+							<span class="users-list__items-elements users-list__items-elements-label"></span>
+<!--							<span class="users-list__items-elements users-list__items-elements-label"></span>-->
+						</div>
+						<!-- Сотрудник -->
+
+					{% for p in personal_list %}
+						<div class="users-list__items users-list__items accent">
+							<span class="users-list__items-elements">
+								{{ p.name_1 }} {{ p.name_2.0 }}.{{ p.name_3.0 }}.
+							</span>
+							<span class="users-list__items-elements">
+								{% if p.uch_avr %}
+									{{ p.uch_avr }}
+								{% else %}---
+								{% endif %}
+							</span>
+							<span class="users-list__items-elements">
+								{% if p.gruppa %}
+									{{ p.gruppa }}
+								{% else %}---
+								{% endif %}
+							</span>
+							<span class="users-list__items-elements users-list__items-elements-warning">
+<!--								{% now "Y.m.d" as today %}-->
+<!--								{% if today < personal.examen_ot %}{{ personal.examen_ot }}-->
+<!--								{% else %}Экзамен просрочен-->
+<!--								{% endif %}-->
+							</span>
+							<span class="users-list__items-elements users-list__items-elements-label">
+								<a href="{{ p.get_absolute_url }}" class="show-card"></a>
+							</span>
+<!--							<span class="users-list__items-elements users-list__items-elements-label">-->
+<!--								<input type="checkbox" class="checkbox">-->
+<!--							</span>-->
+						</div>
+					{% endfor %}
+					</div>
+<!--					<div class="print">-->
+<!--						<a href="#" class="print__link" id="print-protocol">Распечатать протокол</a>-->
+<!--					</div>-->
+				</div>
+				<div class="default-block">
+					<h4 class="title-3">Сотрудники не прошедшие очередную / внеплановую проверку знаний</h4>
+					<div class="users-list">
+						<div class="users-list__items users-list__items-title">
+							<span class="users-list__items-elements">ФИО</span>
+							<span class="users-list__items-elements">Участок</span>
+							<span class="users-list__items-elements">Подразделение</span>
+							<span class="users-list__items-elements">Проверка знаний</span>
+							<span class="users-list__items-elements">Эл.безопасность</span>
+							<span class="users-list__items-elements users-list__items-elements-label"></span>
+						</div>
+						<!-- Сотрудник -->
+						<div class="users-list__items users-list__items accent">
+							<span class="users-list__items-elements">Иванов И.И</span>
+							<span class="users-list__items-elements">Казымский</span>
+							<span class="users-list__items-elements">СМГ</span>
+							<span class="users-list__items-elements users-list__items-elements-warning">24.05.21</span>
+							<span class="users-list__items-elements users-list__items-elements-warning">24.05.21</span>
+							<span class="users-list__items-elements users-list__items-elements-label">
+								<a href="card-user.html" class="show-card"></a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="default-block">
+				<h4 class="title-3">Инструтаж на рабочем месте</h4>
+				<div class="users-list">
+					<div class="users-list__items users-list__items-title">
+						<span class="users-list__items-elements">Фамилия</span>
+						<span class="users-list__items-elements">Имя</span>
+						<span class="users-list__items-elements">Отчество</span>
+						<span class="users-list__items-elements">Таб.номер</span>
+						<span class="users-list__items-elements">Участок</span>
+						<span class="users-list__items-elements">Подразделение</span>
+						<span class="users-list__items-elements">Должность</span>
+						<span class="users-list__items-elements">Инструтаж</span>
+						<span class="users-list__items-elements">Проверка знаний</span>
+						<span class="users-list__items-elements">Эл.безопасность</span>
+						<span class="users-list__items-elements">Мед.осмотр</span>
+						<span class="users-list__items-elements users-list__items-elements-label">Р</span>
+						<span class="users-list__items-elements users-list__items-elements-label">В</span>
+						<span class="users-list__items-elements users-list__items-elements-label">Б</span>
+						<span class="users-list__items-elements users-list__items-elements-label">О</span>
+						<span class="users-list__items-elements users-list__items-elements-label"></span>
+					</div>
+					<!-- Сотрудник -->
+					<div class="users-list__items users-list__items accent">
+						<span class="users-list__items-elements">Иванов</span>
+						<span class="users-list__items-elements">Иван</span>
+						<span class="users-list__items-elements">Иванович</span>
+						<span class="users-list__items-elements">25401235</span>
+						<span class="users-list__items-elements">Казымский</span>
+						<span class="users-list__items-elements">СМГ</span>
+						<span class="users-list__items-elements">Изолировщик 5р</span>
+						<span class="users-list__items-elements users-list__items-elements-warning">24.05.21</span>
+						<span class="users-list__items-elements">24.05.21</span>
+						<span class="users-list__items-elements">24.05.21</span>
+						<span class="users-list__items-elements">24.05.20</span>
+						<span class="users-list__items-elements users-list__items-elements-label"></span>
+						<span class="users-list__items-elements users-list__items-elements-label"></span>
+						<span class="users-list__items-elements users-list__items-elements-label"></span>
+						<span class="users-list__items-elements users-list__items-elements-label">О</span>
+						<span class="users-list__items-elements users-list__items-elements-label">
+							<a href="card-user.html" class="show-card"></a>
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+{% endblock content %}

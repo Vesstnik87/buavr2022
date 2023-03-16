@@ -1,0 +1,981 @@
+{% extends 'lk/base.html' %}
+{% load static %}
+
+{% block nav %}
+<nav class="nav nav-bottom">
+	<a href="{% url 'remonti' %}" class="nav__link">{{ url_name_2 }}</a>
+	<a href="#" class="nav__link nav__link_active">{{ uchastok.nitka }} (участок {{ uchastok.start_uch }} -
+		{{uchastok.end_uch }} км)</a>
+</nav>
+{% endblock nav %}
+
+{% block content %}
+
+<main class="main">
+	<div class="container">
+		<div class="repair-content">
+			<div class="tabs">
+				<div class="tabs-header">
+					<div class="tabs-header__items">
+						<div class="tabs-header__item">Схема</div>
+						<div class="tabs-header__item">Сводка</div>
+						<div class="tabs-header__item hide" data-tab-trump></div>
+					</div>
+				</div>
+				<div class="tabs-content">
+					<div class="sheme">
+						<div class="sheme__content">
+							<div class="sheme__pagination-wrap">
+								<div class="sheme__pagination"></div>
+							</div>
+
+							<div class="sheme__top">
+								<div class="filter-block">
+									<span class="filter-block__title">Поиск по № трубы</span>
+									<div class="input-group input-group_small">
+										<input type="text" class="input search-trump" placeholder="№ трубы">
+									</div>
+									<span class="search-trump-span">Введите № трубы и нажмите Enter</span>
+								</div>
+								<div class="arrow-block">
+									<div class="arrow-wrap">
+										<div class="arrow-block__line"></div>
+										<div class="arrow-block__arrow"></div>
+									</div>
+									<span class="arrow-title">Ход газа</span>
+								</div>
+							</div>
+							<div class="sheme__bottom">
+								<div class="trump-nav">
+									<a href="#" class="trump-nav__btn trump-nav__prev">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256S114.6 512 256 512s256-114.6 256-256zM116.7 244.7l112-112c4.6-4.6 11.5-5.9 17.4-3.5s9.9 8.3 9.9 14.8l0 64 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 64c0 6.5-3.9 12.3-9.9 14.8s-12.9 1.1-17.4-3.5l-112-112c-6.2-6.2-6.2-16.4 0-22.6z" />
+										</svg>
+									</a>
+									<a href="#" class="trump-nav__btn trump-nav__next">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zm395.3 11.3l-112 112c-4.6 4.6-11.5 5.9-17.4 3.5s-9.9-8.3-9.9-14.8l0-64-96 0c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32l96 0 0-64c0-6.5 3.9-12.3 9.9-14.8s12.9-1.1 17.4 3.5l112 112c6.2 6.2 6.2 16.4 0 22.6z" />
+										</svg>
+									</a>
+								</div>
+								<div class="status-block">
+									<span class="status-block__item">вскрытие</span>
+									<span class="status-block__item">раскопано</span>
+									<span class="status-block__item">по результатам диагностики ремонт</span>
+									<span class="status-block__item">по результаам диагностики замена</span>
+									<span class="status-block__item">сварочные работы | ремонтные работы</span>
+									<span class="status-block__item">работа ПИЛ</span>
+									<span class="status-block__item">изоляция</span>
+									<span class="status-block__item">баластировка</span>
+									<span class="status-block__item">засыпка</span>
+									<span class="status-block__item">работы завершены</span>
+									<!-- Отводы -->
+									<div class="otvod">
+										<div class="otvod__line">
+											<div class="line">
+												<div></div>
+												<div></div>
+											</div>
+											<span class="deg"></span>
+											<span class="nap">в/г</span>
+										</div>
+										<span class="otvod__title">(отвод)</span>
+									</div>
+								</div>
+
+							</div>
+
+
+							<!-- Схема расположения труб -->
+							<div class="sheme__map">
+								<!-- Если в базе по ремонтному участку нет труб то вывести заглушку -->
+
+								<span class="trump-id hide">{{uchastok.id}}</span><!--ID (SLUG) газопровода-->
+								<div class="sheme__map-overlay hide">
+
+									<div class="links-block">
+										<span class="links-block__title">Отсутствуют данные по ВТД</span>
+										<form action="{% url 'upload_vtd' %}" method="POST" class="add-file-form"
+											enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="input-group input-group_file">
+												<div class="file-wrapper">
+													<input type="file" name="vtd" class="input-file" id="vtd">
+													<label class="file-label" for="doc_razresh">
+														<div class="icon-btn">
+															<div class="icon icon_exel">
+																<svg xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 53.63 64">
+																	<path
+																		d="M53.33,16.26l-16-16A1,1,0,0,0,36.66,0H11.39A6.34,6.34,0,0,0,5.06,6.32V26.53H4.27A4.27,4.27,0,0,0,0,30.8H0V50.17a4.26,4.26,0,0,0,4.25,4.24h.82v3.27A6.33,6.33,0,0,0,11.39,64H47.31a6.32,6.32,0,0,0,6.32-6.32V17A1,1,0,0,0,53.33,16.26ZM5.05,33.08H4.27a2.28,2.28,0,0,1,0-4.55h.78Zm46.58,24.6A4.31,4.31,0,0,1,47.33,62H11.39a4.33,4.33,0,0,1-4.33-4.32V54.41H38.64a1,1,0,0,0,1-1V34.07a1,1,0,0,0-1-1H7.06V6.32A4.34,4.34,0,0,1,11.39,2H35.66v9.62A6.32,6.32,0,0,0,41.94,18h9.69Z"
+																		transform="translate(0 0)" />
+																	<path
+																		d="M7.52,47.49V39.16h1.4v8.33Zm0-6.91V39.16H12.7v1.42Zm0,3.45V42.6h4.22V44Zm0,3.46V46.06H12.7v1.43Z"
+																		transform="translate(0 0)" style="fill:#fff" />
+																	<path
+																		d="M17.61,47.49l-1.68-3.63-2.62-4.7h1.76L16.82,43l2.55,4.48Zm-4.3,0L15.86,43l1.75-3.85h1.76l-2.63,4.7-1.67,3.63Z"
+																		transform="translate(0 0)" style="fill:#fff" />
+																	<path
+																		d="M23.51,47.6q-3.61,0-3.61-4.29a4.83,4.83,0,0,1,.91-3.15A3.11,3.11,0,0,1,23.38,39a3.14,3.14,0,0,1,1.34.27,1.91,1.91,0,0,1,.87.76l-.78,1.14a1.67,1.67,0,0,0-.61-.51,1.84,1.84,0,0,0-.8-.18,1.78,1.78,0,0,0-1.47.71,3.24,3.24,0,0,0-.55,2q0,2.88,2.31,2.88a3.5,3.5,0,0,0,1.53-.36l.24,1.44A5,5,0,0,1,23.51,47.6Z"
+																		transform="translate(0 0)" style="fill:#fff" />
+																	<path
+																		d="M26.68,47.49V39.16h1.41v8.33Zm0-6.91V39.16h5.19v1.42Zm0,3.45V42.6h4.23V44Zm0,3.46V46.06h5.19v1.43Z"
+																		transform="translate(0 0)" style="fill:#fff" />
+																	<path
+																		d="M33.07,47.49V39.16h1.4v8.33Zm0,0V46.06h5.18v1.43Z"
+																		transform="translate(0 0)" style="fill:#fff" />
+																</svg>
+															</div>
+															<div class="plus"></div>
+															<a href="#" class="remove-file"></a>
+														</div>
+													</label>
+												</div>
+											</div>
+											<button class="btn" type="submit">Сохранить</button>
+										</form>
+									</div>
+								</div>
+
+
+								<!-- -------------------------------------------------------------- -->
+
+
+								<!-- Динамическая схема -->
+
+								<!-- Кран конец участка удалить  style="display: none"-->
+								<a href="#" class="crane-wrap crane-wrap_stat2 crane-start">
+
+									<!-- Южный блок с перемычками и заглушкой -->
+									<div class="jumper-plots-wrap jumper-plots-wrap-ug">
+
+										<!-- Если если в базе есть какая либо перемычка или заглушка, то удаляем класс hide у блока horizontal и соответсвующего элемента  -->
+										<!-- Перемычка юг/верх -->
+										<div class="jumper jumper-top jumper-top hide">
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+											<div class="vertical stat1"></div>
+										</div>
+
+										<!-- Южная заглушка -->
+										<div class="plug plug-ug hide"></div>
+
+										<!-- Кусок трубы -->
+										<div class="horizontal hide"></div>
+
+										<!-- Перемычка юг/низ -->
+										<div class="jumper jumper-bottom">
+											<div class="vertical stat1"></div>
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<!-- Кран -->
+									<div class="crane">
+										<div class="crane__left"></div>
+										<div class="crane__right"></div>
+										<!-- Номер крана -->
+										<span class="title">874</span>
+									</div>
+
+
+									<!-- Северный блок с перемычками и заглушкой -->
+									<div class="jumper-plots-wrap jumper-plots-wrap-sever">
+
+										<!-- Если если в базе есть какая либо перемычка или заглушка, то удаляем класс hide у блока horizontal и соответсвующего элемента  -->
+										<!-- Перемычка юг/верх -->
+										<div class="jumper jumper-top jumper-top">
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+											<div class="vertical stat1"></div>
+										</div>
+
+
+										<!-- Кусок трубы -->
+										<div class="horizontal"></div>
+
+										<!-- Северная заглушка -->
+										<div class="plug plug-sever"></div>
+
+										<!-- Перемычка юг/низ -->
+										<div class="jumper jumper-bottom">
+											<div class="vertical stat1"></div>
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</a>
+
+								<!-- Цикл убрать класс style="display: none" в trump-wrap-->
+
+								<div class="slider">
+
+									<div class="slider__row">
+
+										<div class="slider__item active-slide">
+
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+											<a href="#" class="trump-wrap stat11">
+												<div class="horizontal"></div>
+											</a>
+
+										</div>
+
+									</div>
+
+								</div>
+
+
+								<!-- End Цикл -->
+
+								<!-- Кран начало участка -->
+								<a href="#" class="crane-wrap crane-wrap_stat2 crane-end">
+
+									<!-- Южный блок с перемычками и заглушкой -->
+									<div class="jumper-plots-wrap jumper-plots-wrap-ug">
+
+										<!-- Если если в базе есть какая либо перемычка или заглушка, то удаляем класс hide у блока horizontal и соответсвующего элемента  -->
+										<!-- Перемычка юг/верх -->
+										<div class="jumper jumper-top jumper-top">
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+											<div class="vertical stat1"></div>
+										</div>
+
+										<!-- Южная заглушка -->
+										<div class="plug plug-ug"></div>
+
+										<!-- Кусок трубы -->
+										<div class="horizontal"></div>
+
+										<!-- Перемычка юг/низ -->
+										<div class="jumper jumper-bottom">
+											<div class="vertical stat1"></div>
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<!-- Кран -->
+									<div class="crane">
+										<div class="crane__left"></div>
+										<div class="crane__right"></div>
+										<!-- Номер крана -->
+										<span class="title">911,3</span>
+									</div>
+
+
+									<!-- Северный блок с перемычками и заглушкой -->
+									<div class="jumper-plots-wrap jumper-plots-wrap-sever">
+
+										<!-- Если если в базе есть какая либо перемычка или заглушка, то удаляем класс hide у блока horizontal и соответсвующего элемента  -->
+										<!-- Перемычка юг/верх -->
+										<div class="jumper jumper-top jumper-top hide">
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+											<div class="vertical stat1"></div>
+										</div>
+
+
+										<!-- Кусок трубы -->
+										<div class="horizontal hide"></div>
+
+										<!-- Северная заглушка -->
+										<div class="plug plug-sever hide"></div>
+
+										<!-- Перемычка юг/низ -->
+										<div class="jumper jumper-bottom hide">
+											<div class="vertical stat1"></div>
+											<div class="crane-wrap">
+												<div class="crane">
+													<div class="crane__left"></div>
+													<div class="crane__right"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</a>
+
+
+
+								<!-- Конец схемы -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabs-content">
+					<div class="tabs-content__table">
+						<table class="general">
+							<tr class="table__row table__title">
+								<td class="td_center">Наименование работ</td>
+								<td class="td_center">Всего по проекту</td>
+								<td class="td_center">Объём плана</td>
+								<td class="td_center">Всего</td>
+								<td class="td_center">За сутки</td>
+								<td class="td_center">Динамика <br>за (7дней)</td>
+								<td class="td_center">Процент <br>выполнения</td>
+								<td class="td_center">Остаток</td>
+								<td class="td_center">Отставание, сут.</td>
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td colspan="9">Получение МТР</td>
+							</tr>
+							<tr class="table__row">
+								<td>Труба в изоляции Ду1400 (Всего), м</td>
+								<td class="td_center">27 274</td>
+								<td class="td_center">27 274</td>
+								<td class="td_center">18 933</td>
+								<td class="td_center">500</td>
+								<td class="td_center"></td>
+								<td class="td_center">69</td>
+								<td class="td_center">8 341</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Труба в изоляции Ду1400 х 18,7, м</td>
+								<td class="td_center">8 006</td>
+								<td class="td_center">8 006</td>
+								<td class="td_center">6 355</td>
+								<td class="td_center">131</td>
+								<td class="td_center">24</td>
+								<td class="td_center">79</td>
+								<td class="td_center">1651</td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row">
+								<td>Труба в изоляции Ду1400 х 15,7, м</td>
+								<td class="td_center">19 269</td>
+								<td class="td_center">19 269</td>
+								<td class="td_center">12 578</td>
+								<td class="td_center">381 </td>
+								<td class="td_center">167</td>
+								<td class="td_center">65</td>
+								<td class="td_center">6 691</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Отводы холодного гнутья 1 ГО 1420 х 18.7, м</td>
+								<td class="td_center">10</td>
+								<td class="td_center">10</td>
+								<td class="td_center">12 578</td>
+								<td class="td_center">369</td>
+								<td class="td_center">167</td>
+								<td class="td_center">65</td>
+								<td class="td_center">6 691</td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row">
+								<td>Отводы холодного гнутья 1 ГО 1420 х 15.7, м</td>
+								<td class="td_center">9</td>
+								<td class="td_center">9</td>
+								<td class="td_center"></td>
+								<td class="td_center">1</td>
+								<td class="td_center"></td>
+								<td class="td_center">30</td>
+								<td class="td_center">7</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>ТПА, шт</td>
+								<td class="td_center">8</td>
+								<td class="td_center">8</td>
+								<td class="td_center">9</td>
+								<td class="td_center">2</td>
+								<td class="td_center">1</td>
+								<td class="td_center">100</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>ТУМ 1420, шт</td>
+								<td class="td_center">2 457</td>
+								<td class="td_center">2 457</td>
+								<td class="td_center">623</td>
+								<td class="td_center">30</td>
+								<td class="td_center">33</td>
+								<td class="td_center">25</td>
+								<td class="td_center">1 834</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>ЮтО-1420, УБО, шт</td>
+								<td class="td_center">15 019</td>
+								<td class="td_center">5 167</td>
+								<td class="td_center">665</td>
+								<td class="td_center"></td>
+								<td class="td_center">95</td>
+								<td class="td_center">13</td>
+								<td class="td_center">4 502</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>ПКБУ-МКС-1420, комплект</td>
+								<td class="td_center">71</td>
+								<td class="td_center">71</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center">71</td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td colspan="9">Подготовительные работы</td>
+							</tr>
+							<tr class="table__row">
+								<td>Расчистка строительной полосы, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center">100</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row">
+								<td>Устройство монтажной площадки, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">23 325</td>
+								<td class="td_center">10</td>
+								<td class="td_center">44</td>
+								<td class="td_center">85</td>
+								<td class="td_center">4 008</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td colspan="9">Земляные работы</td>
+							</tr>
+							<tr class="table__row">
+								<td>Вскрытие газопровода, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">21 030</td>
+								<td class="td_center">570</td>
+								<td class="td_center">348</td>
+								<td class="td_center">77</td>
+								<td class="td_center">6 303</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Поднятие на бровку, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">18 680</td>
+								<td class="td_center"></td>
+								<td class="td_center">806</td>
+								<td class="td_center">68</td>
+								<td class="td_center">8</td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td colspan="9">Диагностика газопровода</td>
+							</tr>
+							<tr class="table__row">
+								<td>Очистка от изоляции</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center">27 333</td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row">
+								<td>Резка газопровода, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">14 603</td>
+								<td class="td_center">515</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+
+							</tr>
+							<tr class="table__row">
+								<td>Отбраковка, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center"></td>
+								<td class="td_center">27 333</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td colspan="9">Сварка</td>
+							</tr>
+							<tr class="table__row">
+								<td>Сварено всего стыков, шт</td>
+								<td class="td_center">2 459</td>
+								<td class="td_center">2 459</td>
+								<td class="td_center">1 078</td>
+								<td class="td_center">30</td>
+								<td class="td_center">35</td>
+								<td class="td_center">44</td>
+								<td class="td_center">1 381</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Установка ТУМ 1420, шт</td>
+								<td class="td_center">2 459</td>
+								<td class="td_center">2 459</td>
+								<td class="td_center">623</td>
+								<td class="td_center">30</td>
+								<td class="td_center">33</td>
+								<td class="td_center">25</td>
+								<td class="td_center">1 836</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Доработка траншеи до проектных отметок, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">13 580</td>
+								<td class="td_center">60</td>
+								<td class="td_center">109</td>
+								<td class="td_center">50</td>
+								<td class="td_center">13 753</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Укладка газопровода в траншею, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">13 580</td>
+								<td class="td_center">60</td>
+								<td class="td_center">109</td>
+								<td class="td_center">50</td>
+								<td class="td_center">13 753</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Балластировка, комплект</td>
+								<td class="td_center">15 090</td>
+								<td class="td_center">15 090</td>
+								<td class="td_center">665</td>
+								<td class="td_center">0</td>
+								<td class="td_center">95</td>
+								<td class="td_center">4</td>
+								<td class="td_center">14 425</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row">
+								<td>Обратная засыпка грунтом траншеи отремонтированного участка, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">1 230</td>
+								<td class="td_center">345</td>
+								<td class="td_center">169</td>
+								<td class="td_center">5</td>
+								<td class="td_center">26 103</td>
+								<td class="td_center"></td>
+							</tr>
+							<tr class="table__row table__separator table__title">
+								<td>Вывоз демонтированной трубы, м</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">27 333</td>
+								<td class="td_center">14 273</td>
+								<td class="td_center">444</td>
+								<td class="td_center">1 239</td>
+								<td class="td_center">52</td>
+								<td class="td_center">13 060</td>
+								<td class="td_center"></td>
+							</tr>
+
+						</table>
+					</div>
+				</div>
+				<div class="tabs-content">
+					<div class="default-block-wrap">
+
+						<div class="default-block default-block_map">
+
+							<div class="sheme__map"></div>
+
+						</div>
+
+						<div class="default-block default-block_form">
+
+							<form action="" method="POST" class="form-trump">
+
+<!--								                                                                ПОДКЛЮЧИТЬ ФОРМУ-->
+
+								<div class="preloader preloader-remove">
+
+									<div class="preloader-item"></div>
+
+								</div>
+
+								<!-- Данные по трубе -->
+								<div class="add-plot-repair__row">
+									<div class="add-plot-repair__title"></div>
+									<div class="add-plot-repair__flex-container">
+										<!-- № трубы -->
+										<div class="input-group input-group_small">
+											<span class="input-group__label">№ трубы</span>
+											<div class="radio-dropdown dropdown" data-trump-number>
+												<div class="radio-dropdown__label input">
+													<span class="radio-dropdown__label-text"></span>
+													<span class="radio-dropdown__label-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+															<path
+																d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+															</path>
+														</svg>
+													</span>
+												</div>
+												<div class="radio-dropdown__dropdown">
+
+													<div class="search">
+														<input type="text" class="search__input input"
+															id="search__input" placeholder="Поиск">
+													</div>
+
+													<span class="radio-dropdown__input-icon"></span>
+													<div class="radio-dropdown__radios">
+
+
+														<label class="radio_no-result radio_no-result_hide">
+															<span class="radio__label">Не найдено</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Длина -->
+										<div class="input-group input-group_small">
+											<span class="input-group__label">Длина</span>
+											<div class="input-wrap">
+												<input type="text" class="input" value="" name="dlina" data-trump-dlina>
+												<span class="input-wrap__label">м</span>
+											</div>
+										</div>
+										<!-- Статус-->
+										<div class="input-group">
+											<span class="input-group__label">Статус</span>
+											<div class="radio-dropdown dropdown">
+												<div class="radio-dropdown__label input">
+													<span class="radio-dropdown__label-text" data-trump-status></span>
+													<span class="radio-dropdown__label-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+															<path
+																d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+															</path>
+														</svg>
+													</span>
+												</div>
+												<div class="radio-dropdown__dropdown">
+													<span class="radio-dropdown__input-icon"></span>
+													<div class="radio-dropdown__radios">
+														<label class="radio stat-work0" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="0">
+															<span class="radio__box"></span>
+															<span class="radio__label">Не определен</span>
+														</label>
+														<label class="radio stat-work1" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="1">
+															<span class="radio__box"></span>
+															<span class="radio__label">Вскрытие</span>
+														</label>
+														<label class="radio stat-work2" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="2">
+															<span class="radio__box"></span>
+															<span class="radio__label">Раскопано</span>
+														</label>
+														<label class="radio stat-work3" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="3">
+															<span class="radio__box"></span>
+															<span class="radio__label">Ремонт</span>
+														</label>
+														<label class="radio stat-work4" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="4">
+															<span class="radio__box"></span>
+															<span class="radio__label">Замена</span>
+														</label>
+														<label class="radio stat-work5" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="5">
+															<span class="radio__box"></span>
+															<span class="radio__label">Сварочные | ремонтные
+																работы</span>
+														</label>
+														<label class="radio stat-work6" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="6">
+															<span class="radio__box"></span>
+															<span class="radio__label">Работа ПИЛ</span>
+														</label>
+														<label class="radio stat-work7" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="7">
+															<span class="radio__box"></span>
+															<span class="radio__label">Изоляция</span>
+														</label>
+														<label class="radio stat-work8" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="8">
+															<span class="radio__box"></span>
+															<span class="radio__label">Баластировка</span>
+														</label>
+														<label class="radio stat-work9" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="9">
+															<span class="radio__box"></span>
+															<span class="radio__label">Засыпка</span>
+														</label>
+														<label class="radio stat-work10" data-trump-status-item>
+															<input type="radio" class="radio__input input"
+																name="stage_works_id" value="10">
+															<span class="radio__box"></span>
+															<span class="radio__label">Работы завершены</span>
+														</label>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Заглушки -->
+										<div class="input-group input-group_medium">
+
+											<span class="input-group__label">Заглушки</span>
+
+											<div class="checkbox-dropdown dropdown">
+												<div class="checkbox-dropdown__label input">
+													<span class="checkbox-dropdown__label-text">Не выбрано</span>
+													<span class="checkbox-dropdown__label-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+															<path
+																d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+															</path>
+														</svg>
+													</span>
+												</div>
+												<div class="checkbox-dropdown__dropdown">
+
+													<span class="checkbox-dropdown__input-icon"></span>
+
+													<div class="checkbox-dropdown__checkboxes">
+
+														<label class="checkbox">
+															<input type="checkbox" name="zaglushka_ug"
+																class="checkbox__input" data-zaglushka_ug>
+															<span class="checkbox__box"></span>
+															<span class="checkbox__label">Сил. заглушка ЮГ</span>
+														</label>
+
+														<label class="checkbox">
+															<input type="checkbox" name="zaglushka_sever"
+																class="checkbox__input" data-zaglushka_sever>
+															<span class="checkbox__box"></span>
+															<span class="checkbox__label">Сил. заглушка СЕВЕР</span>
+														</label>
+
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+										<!-- Перемычки -->
+										<div class="input-group input-group_medium">
+
+											<span class="input-group__label">Перемычки</span>
+
+											<div class="checkbox-dropdown dropdown">
+												<div class="checkbox-dropdown__label input">
+													<span class="checkbox-dropdown__label-text">Не выбрано</span>
+													<span class="checkbox-dropdown__label-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+															<path
+																d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z">
+															</path>
+														</svg>
+													</span>
+												</div>
+												<div class="checkbox-dropdown__dropdown">
+
+													<span class="checkbox-dropdown__input-icon"></span>
+
+													<div class="checkbox-dropdown__checkboxes">
+
+														<label class="checkbox">
+															<input type="checkbox" name="peremichka_up"
+																class="checkbox__input" data-peremichka_up>
+															<span class="checkbox__box"></span>
+															<span class="checkbox__label">Перемычка верх?</span>
+														</label>
+
+														<label class="checkbox">
+															<input type="checkbox" name="peremichka_down"
+																class="checkbox__input" data-peremichka_down>
+															<span class="checkbox__box"></span>
+															<span class="checkbox__label">Перемычка верх?</span>
+														</label>
+
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- Дефекты -->
+								<div class="add-plot-repair__row">
+
+									<div class="defects-wrap">
+										<div class="add-plot-repair__row" data-defects>
+											<div class="add-plot-repair__title">Дефекты</div>
+											<div class="defects-wrap__container" data-defects-container>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+								<button class="btn">Сохранить</button>
+
+							</form>
+
+							
+							<div class="add-plot-repair__row">
+								<div class="add-plot-repair__title">Ресурсное обеспечение (техника | персонал)</div>
+								<div class="add-plot-repair__flex-container">
+									<div class="tehnic-wrap">
+										<div class="add-plot-repair__row">
+
+											<div class="add-plot-repair__title">Техника</div>
+
+											<div class="tehnic-wrap__container" data-tehnic-container></div>
+											<a href="#" class="add-btn" tehnic-block-add>
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+													<path
+														d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" />
+												</svg>
+											</a>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.repair-content -->
+	</div>
+
+
+</main>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'lk/js/repair-plot.js' %}"></script>
+{% endblock scripts %}
+
+
+<!--#include virtual="/parts/modals.html" -->
+<!--#include virtual="/parts/footer.html" -->
