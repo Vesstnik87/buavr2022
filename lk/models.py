@@ -276,7 +276,7 @@ class Personal(models.Model):
     flura = models.DateField(verbose_name='Флюорография', null=True, blank=True)
     otpusk_start = models.DateField(verbose_name='Осн.отпуск', null=True, blank=True)
     otpusk_end = models.DateField(verbose_name='Осн.отпуск', null=True, blank=True)
-    otpusk_d1_sart = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
+    otpusk_d1_start = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
     otpusk_d1_end = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
     otpusk_d2_start = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
     otpusk_d2_end = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
