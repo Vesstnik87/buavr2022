@@ -44,6 +44,7 @@
 										{% endif %}
 									</span>
 								</div>
+								{% if personal.otdeleniye %}
 								<div class="info-item">Отделение:
 									<span>
 										{% if personal.otdeleniye %}
@@ -52,6 +53,8 @@
 										{% endif %}
 									</span>
 								</div>
+								{% endif %}
+
 								<div class="info-item">Подразделение:
 									<span>{{ personal.gruppa }}</span>
 								</div>
@@ -76,23 +79,43 @@
 						<h4 class="title-block">ОТ и ПБ</h4>
 						<div class="block-info">
 							<div class="info-item">Проверка знаний по ОТ:
-								<span> {{ personal.examen_ot|date:"d.m.Y" }} </span>
+								{% if personal.examen_ot %}
+									<span> {{ personal.examen_ot|date:"d.m.Y" }} </span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
 							<div class="info-item">Сл.проверка знаний по ОТ:
-								<span>{{ personal.next_examen_ot|date:"d.m.Y" }}</span>
+								{% if personal.next_examen_ot %}
+									<span>{{ personal.next_examen_ot|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
 							<div class="info-item">Проверка знаний по ЭБ:
-								<span>{{ personal.examen_eb|date:"d.m.Y" }}</span>
+								{% if personal.examen_eb %}
+									<span>{{ personal.examen_eb|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
+
 							</div>
 							<div class="info-item">Сл.проверка знаний по ЭБ:
-								<span>{{ personal.next_examen_eb|date:"d.m.Y" }}</span>
+								{% if personal.next_examen_eb %}
+									<span>{{ personal.next_examen_eb|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
+							{% if personal.examen_pdd %}
 							<div class="info-item">Проверка знаний по ПДД:
 								<span>{{ personal.examen_pdd|date:"d.m.Y" }}</span>
 							</div>
+							{% endif %}
+							{% if personal.examen_pdd %}
 							<div class="info-item">Сл.проверка знаний по ПДД:
-								<span>{{ personal.next_examen_pdd|date:"d.m.Y" }}</span>
+								{% if personal.next_examen_pdd %}
+									<span>{{ personal.next_examen_pdd|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
+							{% endif %}
 
 							{% if personal.examen_ptm %}
 							<div class="info-item">Проверка знаний по ПТМ:
@@ -103,7 +126,12 @@
 							{% endif %}
 
 							<div class="info-item">Повторный инструктаж:
-								<span>{{ personal.instructaj|date:"d.m.Y" }}</span>
+								{% if personal.instructaj %}
+										<span>{{ personal.instructaj|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
+
+
 							</div>
 						</div>
 					</div>
@@ -112,13 +140,25 @@
 						<h4 class="title-block">Мед. раздел</h4>
 						<div class="block-info">
 							<div class="info-item">Дата прохождения мед.осмотра:
+								{% if personal.med_osmotr %}
 								<span>{{ personal.med_osmotr|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
 							<div class="info-item">Флюорография:
-								<span>{{ personal.flura|date:"d.m.Y" }}</span>
+								{% if personal.flura %}
+										<span>{{ personal.flura|date:"d.m.Y" }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
+
 							</div>
 							<div class="info-item">Хронические заболевания:
-								<span>{{ personal.ssz|date:"d.m.Y" }}</span>
+								<span>ССЗ</span>
+
+								{% if personal.ssz %}
+										<span>{{ personal.ssz }}</span>
+									{% else %}<span>---</span>
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -127,19 +167,38 @@
 						<h4 class="title-block">Отпуск</h4>
 						<div class="block-info">
 							<div class="info-item">Осн. отпуск:
-								<span>
-									{{ personal.otpusk_start|date:"d.m.Y" }} - {{ personal.otpusk_end|date:"d.m.Y" }}
-								</span>
+								{% if personal.otpusk_start %}
+										<div class="span-wrap">
+											<span>{{ personal.otpusk_start|date:"d.m.Y" }}</span>
+											-
+											<span>{{ personal.otpusk_end|date:"d.m.Y" }}</span>
+										</div>
+									{% else %}<span>---</span>
+								{% endif %}
+
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<span>
-									{{ personal.otpusk_d1_start|date:"d.m.Y" }} - {{ personal.otpusk_d1_end|date:"d.m.Y" }}
-								</span>
+								{% if personal.otpusk_d1_start %}
+										<div class="span-wrap">
+											<span>{{ personal.otpusk_d1_start|date:"d.m.Y" }}</span>
+											-
+											<span>{{ personal.otpusk_d1_end|date:"d.m.Y" }}</span>
+										</div>
+									{% else %}<span>---</span>
+								{% endif %}
+
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<span>
-									{{ personal.otpusk_d2_start|date:"d.m.Y" }} - {{ personal.otpusk_d2_end|date:"d.m.Y" }}
-								</span>
+								{% if personal.otpusk_d2_start %}
+										<div class="span-wrap">
+											<span>{{ personal.otpusk_d2_start|date:"d.m.Y" }}</span>
+											-
+											<span>{{ personal.otpusk_d2_end|date:"d.m.Y" }}</span>
+										</div>
+									{% else %}<span>---</span>
+								{% endif %}
+
+
 							</div>
 
 						</div>

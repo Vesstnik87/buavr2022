@@ -115,31 +115,31 @@
 						<h4 class="title-block">ОТ и ПБ</h4>
 						<div class="block-info">
 							<div class="info-item">Проверка знаний по ОТ:
-								<input class="item-input" name="examen_ot"
+								<input class="item-input item-input_small" name="examen_ot"
 										value="{{ personal.examen_ot|date:'d.m.Y' }}">
 							</div>
 							<!--							<div class="info-item">Сл.проверка знаний по ОТ:-->
 							<!--								<span>26.08.2023</span>-->
 							<!--							</div>-->
 							<div class="info-item">Проверка знаний по ЭБ:
-								<input class="item-input" type="text" name="examen_eb" value="{{ personal.examen_eb|date:'d.m.Y' }}">
+								<input class="item-input item-input_small" type="text" name="examen_eb" value="{{ personal.examen_eb|date:'d.m.Y' }}">
 							</div>
 							<!--							<div class="info-item">Сл.проверка знаний по ЭБ:-->
 							<!--								<span>26.08.2023</span>-->
 							<!--							</div>-->
 							<div class="info-item">Проверка знаний по ПДД:
-								<input class="item-input"  name="examen_pdd" value="{{ personal.pdd|date:'d.m.Y' }}">
+								<input class="item-input item-input_small"  name="examen_pdd" value="{{ personal.pdd|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">ПТМ:
-								<input class="item-input"  name="examen_ptm"
+								<input class="item-input item-input_small"  name="examen_ptm"
 									value="{{ personal.examen_ptm|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">ПДД:
-								<input class="item-input"  name="examen_pdd"
+								<input class="item-input item-input_small"  name="examen_pdd"
 									value="{{ personal.examen_pdd|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">Повторный инструктаж:
-								<input class="item-input"  name="instructaj"
+								<input class="item-input item-input_small"  name="instructaj"
 									value="{{ personal.instructaj|date:'d.m.Y' }}">
 							</div>
 						</div>
@@ -149,20 +149,24 @@
 						<h4 class="title-block">Мед. раздел</h4>
 						<div class="block-info">
 							<div class="info-item">Дата прохождения мед.осмотра:
-								<input class="item-input"  name="med_osmotr"
+								<input class="item-input item-input_small"  name="med_osmotr"
 									value="{{ personal.med_osmotr|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">Флюорография:
-								<input class="item-input"  name="flura" value="{{ personal.flura|date:'d.m.Y' }}">
+								<input class="item-input item-input_small"  name="flura" value="{{ personal.flura|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">Хронические заболевания:
-								<span>
-									ССЗ
-									<!--									{% if personal.flura %}-->
-									<!--										{{ personal.flura }}-->
-									<!--									{% else %}-&#45;&#45;-->
-									<!--									{% endif %}-->
-								</span>
+								<!--Не работает-->
+								<label class="checkbox">
+									<span class="checkbox__label">CCЗ</span>
+									{% if personal.ssz %}
+											<input type="checkbox" checked name="ssz" class="checkbox__input">
+											<span class="checkbox__box"></span>
+										{% else %}
+											<input type="checkbox" name="ssz" class="checkbox__input">
+											<span class="checkbox__box"></span>
+									{% endif %}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -171,16 +175,25 @@
 						<h4 class="title-block">Отпуск</h4>
 						<div class="block-info">
 							<div class="info-item">Осн. отпуск:
-								<input class="item-input item-input_small" name="otpusk_start" value="{{ personal.otpusk_start|date:'d.m.Y' }}">-
-								<input class="item-input item-input_small" name="otpusk_end" value="{{ personal.otpusk_end|date:'d.m.Y' }}">
+								<div class="input-wrap">
+									<input class="item-input item-input_small" name="otpusk_start" value="{{ personal.otpusk_start|date:'d.m.Y' }}">-
+									<input class="item-input item-input_small" name="otpusk_end" value="{{ personal.otpusk_end|date:'d.m.Y' }}">
+								</div>
+
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<input class="item-input item-input_small" name="otpusk_d1_start" value="{{ personal.otpusk_d1_start|date:'d.m.Y' }}">-
-								<input class="item-input item-input_small" name="otpusk_d1_end" value="{{ personal.otpusk_d1_end|date:'d.m.Y' }}">
+								<div class="input-wrap">
+									<input class="item-input item-input_small" name="otpusk_d1_start" value="{{ personal.otpusk_d1_start|date:'d.m.Y' }}">-
+									<input class="item-input item-input_small" name="otpusk_d1_end" value="{{ personal.otpusk_d1_end|date:'d.m.Y' }}">
+								</div>
+
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<input class="item-input item-input_small" name="otpusk_d2_start" value="{{ personal.otpusk_d2_start|date:'d.m.Y' }}">-
-								<input class="item-input item-input_small" name="otpusk_d2_end" value="{{ personal.otpusk_d2_end|date:'d.m.Y' }}">
+								<div class="input-wrap">
+									<input class="item-input item-input_small" name="otpusk_d2_start" value="{{ personal.otpusk_d2_start|date:'d.m.Y' }}">-
+									<input class="item-input item-input_small" name="otpusk_d2_end" value="{{ personal.otpusk_d2_end|date:'d.m.Y' }}">
+								</div>
+
 							</div>
 
 						</div>
