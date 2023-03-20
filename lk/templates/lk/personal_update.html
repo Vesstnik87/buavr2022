@@ -171,16 +171,16 @@
 						<h4 class="title-block">Отпуск</h4>
 						<div class="block-info">
 							<div class="info-item">Осн. отпуск:
-								<input class="item-input item-input_small" name="otpusk_start" value="{{ personal.otpusk_start }}">-
-								<input class="item-input item-input_small" name="otpusk_end" value="{{ personal.otpusk_end }}">
+								<input class="item-input item-input_small" name="otpusk_start" value="{{ personal.otpusk_start|date:'d.m.Y' }}">-
+								<input class="item-input item-input_small" name="otpusk_end" value="{{ personal.otpusk_end|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<input class="item-input item-input_small" name="otpusk_d1_start" value="{{ personal.otpusk_d1_start }}">-
-								<input class="item-input item-input_small" name="otpusk_d1_end" value="{{ personal.otpusk_d1_end }}">
+								<input class="item-input item-input_small" name="otpusk_d1_start" value="{{ personal.otpusk_d1_start|date:'d.m.Y' }}">-
+								<input class="item-input item-input_small" name="otpusk_d1_end" value="{{ personal.otpusk_d1_end|date:'d.m.Y' }}">
 							</div>
 							<div class="info-item">Доп. отпуск:
-								<input class="item-input item-input_small" name="otpusk_d2_start" value="{{ personal.otpusk_d2_start }}">-
-								<input class="item-input item-input_small" name="otpusk_d2_end" value="{{ personal.otpusk_d2_end }}">
+								<input class="item-input item-input_small" name="otpusk_d2_start" value="{{ personal.otpusk_d2_start|date:'d.m.Y' }}">-
+								<input class="item-input item-input_small" name="otpusk_d2_end" value="{{ personal.otpusk_d2_end|date:'d.m.Y' }}">
 							</div>
 
 						</div>
