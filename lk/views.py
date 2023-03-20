@@ -180,7 +180,9 @@ class UserUpdate(UpdateView, GroupUchavr):
     fields = [
         'name_1', 'name_2', 'name_3', 'tabnumber', 'bithday',
         'ustroen', 'uch_avr', 'professiya', 'otdeleniye', 'gruppa', 'examen_ot',
-        'examen_eb', 'examen_pdd', 'examen_ptm', 'instructaj'
+        'examen_eb', 'examen_pdd', 'examen_ptm', 'instructaj', 'otpusk_start',
+        'otpusk_end', 'otpusk_d1_start', 'otpusk_d1_end', 'otpusk_d2_start',
+        'otpusk_d2_end'
     ]
 
 

@@ -6,7 +6,7 @@
 <!-- Main Section -->
 <section class="main">
 	<div class="container">
-		<form action="{% url 'user_update' personal.slug %}" class="register" method="post">
+		<form action="{% url 'user_update' personal.slug %}" class="register" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="card-user">
 				<div class="left-block">
@@ -14,7 +14,22 @@
 					<div class="card-user__section">
 						<div class="personal-block">
 							<div class="personal-block__photo">
-								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника">
+								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника" id="personal-foto-img">
+								<span class="personal-foto-span">Фото сотрудника<small>размер 300x300</small></span>
+
+								<div class="change-person-img">
+									<div class="add-image">
+										<input type="file" name="personal-foto" id="personal-foto">
+										<label for="personal-foto" class="text-btn">
+											Загрузить
+										</label>
+									</div>
+									<div class="clear-image">
+										<span class="text-btn">Удалить</span>
+									</div>
+								</div>
+
+
 							</div>
 
 							<div class="personal-block__info block-info">
@@ -156,19 +171,21 @@
 						<h4 class="title-block">Отпуск</h4>
 						<div class="block-info">
 							<div class="info-item">Осн. отпуск:
-								Сделать два инпута "c"-"по"
+								<input class="item-input item-input_small" name="otpusk_start" value="{{ personal.otpusk_start }}">-
+								<input class="item-input item-input_small" name="otpusk_end" value="{{ personal.otpusk_end }}">
 							</div>
 							<div class="info-item">Доп. отпуск:
-								Сделать два инпута "c"-"по"
+								<input class="item-input item-input_small" name="otpusk_d1_start" value="{{ personal.otpusk_d1_start }}">-
+								<input class="item-input item-input_small" name="otpusk_d1_end" value="{{ personal.otpusk_d1_end }}">
 							</div>
 							<div class="info-item">Доп. отпуск:
-								Сделать два инпута "c"-"по"
+								<input class="item-input item-input_small" name="otpusk_d2_start" value="{{ personal.otpusk_d2_start }}">-
+								<input class="item-input item-input_small" name="otpusk_d2_end" value="{{ personal.otpusk_d2_end }}">
 							</div>
 
 						</div>
-
 					</div>
-					<div class="btn-wrap">
+					<div class="btn-block">
 						<button class="btn" type="submit">Сохранить изменения</button>
 					</div>
 				</div>
