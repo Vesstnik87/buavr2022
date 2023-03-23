@@ -282,6 +282,7 @@ class Personal(models.Model):
     otpusk_d2_end = models.DateField(verbose_name='Доп.отпуск', null=True, blank=True)
     location_1 = models.CharField(verbose_name='Местоположение 1', max_length=255, null=True, blank=True)
     location_2 = models.CharField(verbose_name='Местоположение 2', max_length=255, null=True, blank=True)
+    foto = models.ImageField(upload_to='avatar/', help_text='150х150', verbose_name='Фото сотрудника', null=True, blank=True)
     ssz = models.BooleanField(verbose_name='ССЗ', default=False)
 
     def save(self, *args, **kwargs):

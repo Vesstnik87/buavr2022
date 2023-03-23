@@ -14,7 +14,7 @@
 					<div class="card-user__section">
 						<div class="personal-block">
 							<div class="personal-block__photo">
-								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника" id="personal-foto-img">
+								<img src="{{personal.foto.url}}" alt="Фото сотрудника" id="personal-foto-img">
 								<span class="personal-foto-span">Фото сотрудника<small>размер 300x300</small></span>
 
 								<div class="change-person-img">
@@ -158,7 +158,7 @@
 							<div class="info-item">Хронические заболевания:
 								<!--Не работает-->
 								<label class="checkbox">
-									<span class="checkbox__label">CCЗ</span>
+									<span class="checkbox__label"></span>
 									{% if personal.ssz %}
 											<input type="checkbox" checked name="ssz" class="checkbox__input">
 											<span class="checkbox__box"></span>
