@@ -245,7 +245,14 @@ class Status(models.Model):
 
 # УЧЕТ СВАРНЫХ
 class Svarshov(models.Model):
-    name = models.CharField(max_length=100, null=True)
+    name = models.CharField(max_length=100, null=True, verbose_name='Сварной шев')
+
+
+class Hron(models.Model):
+    hron = models.CharField(max_length=255, null=True, blank=True, verbose_name='Хронические заболевания')
+
+    def __str__(self):
+        return self.hron
 
 
 # ПЕРСОНАЛ
@@ -283,7 +290,6 @@ class Personal(models.Model):
     location_1 = models.CharField(verbose_name='Местоположение 1', max_length=255, null=True, blank=True)
     location_2 = models.CharField(verbose_name='Местоположение 2', max_length=255, null=True, blank=True)
     foto = models.ImageField(upload_to='avatar/', help_text='150х150', verbose_name='Фото сотрудника', null=True, blank=True)
-    ssz = models.BooleanField(verbose_name='ССЗ', default=False)
 
     def save(self, *args, **kwargs):
         self.slug = uuslug(self.name_1, instance=self) + '-' + uuslug(self.name_2, instance=self) + '-' + uuslug(self.name_3, instance=self)
