@@ -152,14 +152,14 @@
 								{% endif %}
 
 							</div>
-<!--							<div class="info-item">Хронические заболевания:-->
-<!--								<span>ССЗ</span>-->
+							<div class="info-item">Хронические заболевания:
+								{% if personal.hron %}
+								<span>{{ personal.gruppa }}</span>
+								{% else %}
+								<span>---</span>
+								{% endif %}
 
-<!--								-->
-<!--										<span></span>-->
-<!--									<span>-&#45;&#45;</span>-->
-<!--								-->
-<!--							</div>-->
+							</div>
 						</div>
 					</div>
 
