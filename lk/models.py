@@ -13,12 +13,14 @@ def slugify_value(value):
 def instance_slug(instance):
     return instance.slug
 
+
 # СПИСОК ПРОФЕССИЙ
 class Prof(models.Model): # СПИСОК ПРОФЕССИЙ
     prof = models.CharField(max_length=255, db_index=True)
 
     def __str__(self):
         return self.prof
+
 
 # СПИСОК ПОДРАЗДЕЛЕНИЙ
 class Group(models.Model): # СПИСОК ПОДРАЗДЕЛЕНИЙ, ГРУПП, СЛУЖБ
@@ -27,12 +29,14 @@ class Group(models.Model): # СПИСОК ПОДРАЗДЕЛЕНИЙ, ГРУПП
     def __str__(self):
         return self.group
 
+
 # ДИАМЕТРЫ ГАЗОПРОВОДА
 class Diametr(models.Model): # ДИАМЕТР ТРУБЫ
     d_gazopr = models.TextField()
 
     def __str__(self):
         return self.d_gazopr
+
 
 # УЧАСТОК ГАЗОПРОВОДА
 class Uchastok(models.Model):
@@ -102,6 +106,7 @@ class Gazopr(models.Model): # СПИСОК ГАЗОПРОВОДОВ
     def __str__(self):
         return self.gazopr
 
+
 # СПИСОК ВОЗМОЖНЫХ ДЕФФЕКТОВ
 class Deffect(models.Model):
     deffect = models.CharField(max_length=255, db_index=True)
@@ -109,6 +114,7 @@ class Deffect(models.Model):
 
     def __str__(self):
         return self.deffect
+
 
 # СПИСОК ТЕХНИКИ
 class Tehnika(models.Model):
@@ -135,6 +141,7 @@ class Tehnika(models.Model):
         verbose_name_plural = 'Техника'
         ordering = ['type', 'model', 'gos_number', 'status', 'location1', 'location2', 'rashod_h', 'rashod_km']
 
+
 # СПИСОК МЕСТОПОЛОЖЕНИЙ
 class Locations(models.Model):
     name = models.CharField(max_length=150, null=True, blank=True, verbose_name='Местоположение')
@@ -144,6 +151,7 @@ class Locations(models.Model):
     dop_3 = models.CharField(max_length=150, null=True, blank=True, verbose_name='доп3')
     dop_4 = models.CharField(max_length=150, null=True, blank=True, verbose_name='доп4')
     dop_5 = models.CharField(max_length=150, null=True, blank=True, verbose_name='доп5')
+
 
 # МЕТОДЫ РЕМОНТА
 class Metod_remonta(models.Model):
@@ -159,6 +167,7 @@ class Uchavr(models.Model):
 
     def __str__(self):
         return self.uchavr
+
 
 # ТРУБА
 class Truba(models.Model):
@@ -248,6 +257,7 @@ class Svarshov(models.Model):
     name = models.CharField(max_length=100, null=True, verbose_name='Сварной шев')
 
 
+# ХРОНИЧЕСКИЕ ЗАБОЛЕВАНИЯ
 class Hron(models.Model):
     hron = models.CharField(max_length=255, null=True, blank=True, verbose_name='Хронические заболевания')
 
@@ -290,6 +300,7 @@ class Personal(models.Model):
     location_1 = models.CharField(verbose_name='Местоположение 1', max_length=255, null=True, blank=True)
     location_2 = models.CharField(verbose_name='Местоположение 2', max_length=255, null=True, blank=True)
     foto = models.ImageField(upload_to='avatar/', help_text='150х150', verbose_name='Фото сотрудника', null=True, blank=True)
+    hron = models.ForeignKey('Hron', on_delete=models.PROTECT, null=True, verbose_name='Хронические заболевания', blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = uuslug(self.name_1, instance=self) + '-' + uuslug(self.name_2, instance=self) + '-' + uuslug(self.name_3, instance=self)
