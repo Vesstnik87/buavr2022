@@ -184,7 +184,7 @@ class UserUpdate(UpdateView, GroupUchavr):
         'ustroen', 'uch_avr', 'professiya', 'otdeleniye', 'gruppa', 'examen_ot',
         'examen_eb', 'examen_pdd', 'examen_ptm', 'instructaj', 'otpusk_start',
         'otpusk_end', 'otpusk_d1_start', 'otpusk_d1_end', 'otpusk_d2_start',
-        'otpusk_d2_end', 'foto'
+        'otpusk_d2_end', 'foto', 'hron'
     ]
 
 
