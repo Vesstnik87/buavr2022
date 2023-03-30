@@ -160,19 +160,16 @@
 							<div class="info-item">Флюорография:
 								<input class="item-input item-input_small"  name="flura" value="{{ personal.flura|date:'d.m.Y' }}">
 							</div>
-<!--							<div class="info-item">Хронические заболевания:-->
-<!--								&lt;!&ndash;Не работает&ndash;&gt;-->
-<!--								<label class="checkbox">-->
-<!--									<span class="checkbox__label"></span>-->
-<!--									-->
-<!--											<input type="checkbox" checked name="ssz" class="checkbox__input">-->
-<!--											<span class="checkbox__box"></span>-->
-<!--										-->
-<!--											<input type="checkbox" name="ssz" class="checkbox__input">-->
-<!--											<span class="checkbox__box"></span>-->
-<!--									-->
-<!--								</label>-->
-<!--							</div>-->
+
+							<div class="info-item">Хронические заболевания:
+								<select class="item-input" name="gruppa">
+									<option value="{{ personal.gruppa.id }}">{{ personal.gruppa }}</option>
+									{% for gruppa in view.get_groups %}
+									<option value="{{ gruppa.id }}">{{ gruppa.group }}</option>
+									{% endfor %}
+								</select>
+							</div>
+
 						</div>
 					</div>
 
