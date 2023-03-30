@@ -163,9 +163,8 @@
 
 							<div class="info-item">Хронические заболевания:
 								<select class="item-input" name="gruppa">
-									<option value="{{ personal.gruppa.id }}">{{ personal.gruppa }}</option>
-									{% for gruppa in view.get_groups %}
-									<option value="{{ gruppa.id }}">{{ gruppa.group }}</option>
+									{% for hron in view.get_hron %}
+									<option value="{{ hron.hron  }}">{{ hron.hron }}</option>
 									{% endfor %}
 								</select>
 							</div>

@@ -27,6 +27,8 @@ class GroupUchavr:
     def get_otdels(self):
         return Otdel.objects.all()
 
+    def get_hron(self):
+        return Hron.objects.all()
 
 class GroupUchastok:
     def get_lpumg(self):
