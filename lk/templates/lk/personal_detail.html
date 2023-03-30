@@ -13,7 +13,11 @@
 					<div class="card-user__section">
 						<div class="personal-block">
 							<div class="personal-block__photo">
+								{% if personal.foto %}
 								<img src="{{personal.foto.url}}" alt="Фото сотрудника">
+								{% else %}
+								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника">
+								{% endif %}
 							</div>
 							<div class="personal-block__name">
 								<span class="last-name">{{ personal.name_1 }}</span>

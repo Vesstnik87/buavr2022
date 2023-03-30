@@ -14,12 +14,17 @@
 					<div class="card-user__section">
 						<div class="personal-block">
 							<div class="personal-block__photo">
+								{% if personal.foto %}
 								<img src="{{personal.foto.url}}" alt="Фото сотрудника" id="personal-foto-img">
+								{% else %}
+								<img src="{% static 'lk/images/dist/personal-photo.jpg' %}" alt="Фото сотрудника">
+								{% endif %}
 								<span class="personal-foto-span">Фото сотрудника<small>размер 300x300</small></span>
 
 								<div class="change-person-img">
 									<div class="add-image">
-										<input type="file" name="foto" id="personal-foto" value="{{personal.foto.url}}">
+
+										<input type="file" name="foto" id="personal-foto" value="">
 										<label for="personal-foto" class="text-btn">
 											Загрузить
 										</label>
