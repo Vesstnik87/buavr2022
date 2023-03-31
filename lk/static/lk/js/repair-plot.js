@@ -275,6 +275,7 @@ function appendTrumps(array, index) {
 
     let sliderItemWidth = document.querySelector('.slider__item').clientWidth;
     sliderItem.style.width = `${sliderItemWidth}px`;
+    
 
 };
 
@@ -394,7 +395,7 @@ function getDataTrump(array, baseArr, number, tehnic) {
         }
     })
 
-    console.log(trumpObjForm)
+    
 
     const trumps = shemeMap.querySelectorAll('.horizontal');
     let mainTrump;
