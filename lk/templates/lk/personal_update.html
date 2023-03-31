@@ -29,9 +29,6 @@
 											Загрузить
 										</label>
 									</div>
-									<div class="clear-image">
-										<span class="text-btn">Удалить</span>
-									</div>
 								</div>
 
 
@@ -165,8 +162,12 @@
 							</div>
 
 							<div class="info-item">Хронические заболевания:
-								<select class="item-input" name="hron">
+								<select class="item-input item-input_small" name="hron">
+									{% if personal.hron %}
 									<option value="{{ personal.hron.id }}">{{ personal.hron }}</option>
+									{% else %}
+									<option value="">Отсутствует</option>
+									{% endif %}
 									{% for hron in view.get_hron %}
 									<option value="{{ hron.id }}">{{ hron.hron }}</option>
 									{% endfor %}
