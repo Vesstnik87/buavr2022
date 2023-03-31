@@ -51,11 +51,9 @@ getResource("../../getTrump")
             setTimeout(() => {
 
                 appendTrumps(subarray, arrayIndex);
-                clickTrump(trumpsArr, tehnicUch);
 
             }, 2000);
 
-            getResourceIntereval();
 
         } else {
             // Remove Elements Map
@@ -66,50 +64,6 @@ getResource("../../getTrump")
         // Рендер по клику на кнопки
         search(subarray);
     })
-
-function getResourceIntereval() {
-    setInterval(() => {
-        // Получение труб из базы и запись в массив trumpsArr
-        getResource("../../getTrump")
-            .then(data => {
-
-                let subarray = []; // Массив с массивами по 15 объектов.
-
-                let trumpsArr = [];
-                data.truba.forEach(objTruba => {
-                    if (objTruba.uch_trub_id == +trumpId) {
-                        trumpsArr.push(objTruba);
-                    }
-                });
-                // Если трубы в массиве есть показать их, игаче вывести кнопку загрузки.
-                if (trumpsArr.length != 0) {
-                    // Add Elements Map
-                    removeHideElementsMap()
-
-                    // Добавление объектов с техникой в массив трубы
-                    addTehnic(trumpsArr);
-
-                    // Дробим основной массив на подмасивы по 15 труб
-                    createSubArr(trumpsArr, subarray)
-
-                    // Вставляем 15 труб с индексом 0
-                    setTimeout(() => {
-                        appendTrumps(subarray, arrayIndex);
-                        clickTrump(trumpsArr);
-                    }, 2000);
-
-                } else {
-                    // Remove Elements Map
-                    addHideElementsMap()
-                }
-            })
-    }, 2000000);
-
-}
-
-// Interval
-
-//--------
 
 // Добавление объектов с техникой в массив трубы
 function addTehnic(array, tehnicUch) {
@@ -423,78 +377,8 @@ function removeHideElementsMap() {
 }
 
 // РАБОТА С ФОРМОЙ ТРУБЫ
-const tabsHeaderItems = document.querySelectorAll('.tabs-header__item'),
-    tabsContentItems = document.querySelectorAll('.tabs-content'),
-    tabslength = tabsHeaderItems.length - 1;
 
-function clickTrump(array, tehnic) {
-    document.addEventListener('click', e => {
-        let trumpNumber;
-        if (e.target.closest('.trump-wrap')) {
-            trumpNumber = +e.target.closest('.trump-wrap').querySelector('.number').innerHTML; // Получаем номер трубы
-            activeTab();
-            createObjTrump()
-        } else if (e.target.closest('.radio')) {
-            if (e.target.closest('.radio').querySelector('.radio__box_trump-number_number')) {
-                trumpNumber = +e.target.closest('.radio').querySelector('.radio__box_trump-number_number').innerHTML; // Получаем номер трубы
-                activeTab();
-                createObjTrump()
-            }
-
-        } else if (e.target.closest('.close_trump')) {
-            tabsHeaderItems[0].classList.add('tabs-header__item_active');
-            tabsHeaderItems[tabslength].classList.remove('tabs-header__item_active');
-            tabsHeaderItems[tabslength].classList.add('hide');
-            tabsContentItems[tabslength].classList.remove('show-tabs');
-            tabsContentItems[tabslength].classList.add('hide-tabs');
-            tabsContentItems[0].classList.add('show-tabs');
-        }
-        function activeTab() {
-            // Активируем таб с трубой
-            tabsContentItems.forEach(item => {
-                item.classList.add('hide-tabs');
-                item.classList.remove('show-tabs');
-            })
-            tabsHeaderItems.forEach(item => {
-                item.classList.remove('tabs-header__item_active');
-            })
-            tabsHeaderItems[tabslength].innerHTML = `№ ${trumpNumber} <a href="#" class="close close_trump"></a>`;
-            tabsHeaderItems[tabslength].classList.remove('hide');
-            tabsHeaderItems[tabslength].classList.add('tabs-header__item_active');
-            tabsContentItems[tabslength].classList.add('show-tabs');
-        }
-
-
-
-        function createObjTrump() {// Cоздаём обЪект с трубой
-            let newArr = [],
-                arrIndex;
-
-            array.forEach((trumpsObj, i) => {
-                if (trumpsObj.number === trumpNumber && i > 0 && i != array.length - 1) {
-                    arrIndex = i - 1;
-                } else if (trumpsObj.number === trumpNumber && i == 0) {
-                    arrIndex = i;
-                } else if (trumpsObj.number === trumpNumber && i == array.length - 1) {
-                    arrIndex = i - 2;
-                }
-            })
-
-            for (let i = 0; i < 3; i++) {
-                newArr.push(array[arrIndex]);
-                arrIndex++;
-            }
-
-            // Передаём в функцию объект трубы
-            getDataTrump(newArr, array, trumpNumber, tehnic);
-        }
-
-
-
-    })
-}
-
-// Функция генерации страницы с трубой
+// Функция генерации страницы с трубой Перепроверить!!!!!!!!!!!!!!!!
 function getDataTrump(array, baseArr, number, tehnic) {
     // СХЕМА
     const shemeMap = document.querySelector('.default-block_map .sheme__map');
