@@ -72,8 +72,6 @@ def getTrump(request):
     return JsonResponse( {"truba": list(truba.values())} )
 
 
-
-
 # ВЫВОД ТЕХНИКИ 
 def getTehnika(request):
     tehnika = Tehnika.objects.all()
