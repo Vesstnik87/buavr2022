@@ -66,6 +66,12 @@ class RemontDetail(DetailView, GroupUchastok):
     # pk_url_kwarg = 'uch_pk'
     extra_context = {'title': 'Ремонты', 'url_name': 'Вывод участка в ремонт', 'url_name_2': 'Текущие ремонты'}
 
+
+class TrumpDetail(DetailView, GroupUchastok):
+    model = Truba
+    # slug_field = "number"
+    template_name = 'lk/trump-detail.html'
+
 # ВЫВОД РЕМОНТИРУЕМЫХ ТРУБ
 def getTrump(request):
     truba = Truba.objects.all()

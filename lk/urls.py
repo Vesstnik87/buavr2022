@@ -18,6 +18,7 @@ urlpatterns = [
 	path('add_uch/', AddUch.as_view(), name='add_uch'),
 	path('remonti/', views.RemontUcastki.as_view(), name='remonti'),
 	path('remonti/<slug:slug>/', views.RemontDetail.as_view(), name='remont_detail'),
+	path('remonti/<slug:slug>/<int:number>/', views.TrumpDetail.as_view(), name='trump-detail'),
 	path('upload_vtd', views.upload_vtd, name='upload_vtd'),
 
 ]
