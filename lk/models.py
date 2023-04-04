@@ -235,7 +235,7 @@ class Truba(models.Model):
     uch_trubid = models.IntegerField(null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse("trump-detail", kwargs={"number": self.number})
+        return reverse("trump_detail", kwargs={"number": self.number})
 
 
     class Meta:
