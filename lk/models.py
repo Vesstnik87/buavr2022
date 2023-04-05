@@ -233,9 +233,15 @@ class Truba(models.Model):
 
     uch_trub = models.ForeignKey('Uchastok', on_delete=models.PROTECT, verbose_name='Принадлежность к участку', blank=True)
     uch_trubid = models.IntegerField(null=True, blank=True)
+    trump_url = AutoSlugField('URL', max_length=100, db_index=True, unique=True, populate_from=instance_slug,
+                         slugify=slugify_value, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(str(self.number), instance=self)
+        super(Truba, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("trump_detail", kwargs={"number": self.number})
+        return reverse("trump_detail", kwargs={"trump_url": self.trump_url})
 
 
     class Meta:

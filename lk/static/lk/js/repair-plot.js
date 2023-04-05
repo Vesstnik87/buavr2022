@@ -111,9 +111,10 @@ function createSubArr(array, subarray) {
 
 // Функция перебора труб и их рендеринга
 function renderOneTrump(obj, item) {
+    console.log(obj)
     const trumpElement = document.createElement('a');
     trumpElement.classList.add('trump-wrap', `stat${obj.stage_works_id}`);
-    // trumpElement.href = `/remonti/urengoi-griazovetsk-525-0-537-0/${obj.id}`
+     trumpElement.href = `${obj.get_absolute_url}`
     trumpElement.innerHTML = `
     <div class="trump">
 

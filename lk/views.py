@@ -63,13 +63,14 @@ class RemontUcastki(ListView):
 class RemontDetail(DetailView, GroupUchastok):
     model = Uchastok
     slug_field = "slug"
+    template_name = 'lk/uchastok_detail.html'
     # pk_url_kwarg = 'uch_pk'
     extra_context = {'title': 'Ремонты', 'url_name': 'Вывод участка в ремонт', 'url_name_2': 'Текущие ремонты'}
 
 
 class TrumpDetail(DetailView, GroupUchastok):
     model = Truba
-    # slug_field = "number"
+    slug_field = "trump_url"
     template_name = 'lk/trump_detail.html'
 
 # ВЫВОД РЕМОНТИРУЕМЫХ ТРУБ
