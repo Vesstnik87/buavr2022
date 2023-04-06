@@ -56,8 +56,8 @@ class TrubaResource(resources.ModelResource):
 
 class TrubaAdmin(ImportExportActionModelAdmin):
 	resource_class = TrubaResource
-	list_display = ('id', 'number', 'dlina', 'otvod', 'def_1', 'def_1_percent', 'comment_1', 'comment_2', 'uch_trub')
-	list_display_links  = ('number', 'uch_trub')
+	list_display = ('id', 'number', 'dlina', 'otvod', 'def_1', 'def_1_percent', 'comment_1', 'comment_2', 'uch_trub', 'slug')
+	list_display_links  = ('number', 'uch_trub', 'slug')
 
 admin.site.register(Truba, TrubaAdmin)
 admin.site.register(Uchastok, UchastokAdmin)
