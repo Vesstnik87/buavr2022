@@ -241,7 +241,7 @@ class Truba(models.Model):
         super(Truba, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("trump_url", kwargs={"url": self.slug})
+        return reverse("truba", kwargs={"truba": self.slug})
 
 
     class Meta:
