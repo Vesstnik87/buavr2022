@@ -70,7 +70,9 @@ class RemontDetail(DetailView, GroupUchastok):
 
 class TrumpDetail(DetailView, GroupUchastok):
     model = Truba
-    slug_field = "truba"
+    template_name = 'lk/truba_update.html'
+    fields = ['number']
+
 
 
 # ВЫВОД РЕМОНТИРУЕМЫХ ТРУБ
