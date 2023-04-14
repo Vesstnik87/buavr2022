@@ -20,5 +20,4 @@ urlpatterns = [
 	path('remonti/<slug:slug>/', views.RemontDetail.as_view(), name='remont_detail'),
 	re_path('remonti/<slug:slug>/<slug:trump_url>/', views.TrumpDetail.as_view(), name='truba'),
 	path('upload_vtd', views.upload_vtd, name='upload_vtd'),
-
 ]
