@@ -16,8 +16,8 @@ urlpatterns = [
 	path('login/', LoginUser.as_view(), name='login'),
 	path('register/', RegPers.as_view(), name='register'),
 	path('add_uch/', AddUch.as_view(), name='add_uch'),
-	path('remonti/', views.RemontUcastki.as_view(), name='remonti'),
-	path('remonti/<slug:slug>/', views.RemontDetail.as_view(), name='remont_detail'),
+	path('remonti/', views.RemontUcastkiListView.as_view(), name='uchastok_list'),
+	path('remonti/<slug:slug>/', views.RemontDetail.as_view(), name='uchastok_detail'),
 	re_path('remonti/<slug:slug>/<slug:trump_url>/', views.TrumpDetail.as_view(), name='truba'),
 	path('upload_vtd', views.upload_vtd, name='upload_vtd'),
 ]

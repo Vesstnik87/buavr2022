@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, JsonResponse, request
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 from .utils import *
@@ -53,14 +54,14 @@ class PersonList(GroupUchavr, ListView):
 
 
 # ВЫВОД СПИСКА РЕМОНТИРУЕМЫХ УЧАСТКОВ
-class RemontUcastki(ListView):
+class RemontUcastkiListView(ListView):
     model = Uchastok
     # queryset = Uchastok.objects.all()
     extra_context = {'title': 'Ремонты', 'url_name': 'Вывод участка в ремонт', 'url_name_2': 'Текущие ремонты'}
 
 
 # ИНОФРМАЦИЯ ПО РЕМОНТИРУЕМОМУ УЧАСТКУ
-class RemontDetail(DetailView, GroupUchastok):
+class RemontDetail(ListView, GroupUchastok):
     model = Uchastok
     slug_field = "slug"
     template_name = 'lk/uchastok_detail.html'
@@ -68,7 +69,7 @@ class RemontDetail(DetailView, GroupUchastok):
     extra_context = {'title': 'Ремонты', 'url_name': 'Вывод участка в ремонт', 'url_name_2': 'Текущие ремонты'}
 
 
-class TrumpDetail(DetailView, GroupUchastok):
+class TrumpDetail(View, GroupUchastok):
     model = Truba
     template_name = 'lk/truba_update.html'
     fields = ['number']

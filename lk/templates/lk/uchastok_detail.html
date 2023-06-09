@@ -3,7 +3,7 @@
 
 {% block nav %}
 <nav class="nav nav-bottom">
-	<a href="{% url 'remonti' %}" class="nav__link">{{ url_name_2 }}</a>
+	<a href="{% url 'uchastok_list' %}" class="nav__link">{{ url_name_2 }}</a>
 	<a href="#" class="nav__link nav__link_active">{{ uchastok.nitka }} (участок {{ uchastok.start_uch }} -
 		{{uchastok.end_uch }} км)</a>
 </nav>
@@ -229,8 +229,8 @@
 
 								<!-- Цикл убрать класс style="display: none" в trump-wrap-->
 
-								{% for t in view.get_truba %}
-											<a href="{{ t.get_absolute_url }}" class="btn">Изменить данные</a>
+								{% for t in uchastok_detail %}
+											<a href="#" class="btn">Изменить данные {{ t.id }}</a>
 								{% endfor %}
 								<div class="slider">
 
